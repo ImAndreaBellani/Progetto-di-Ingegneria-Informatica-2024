@@ -1,0 +1,12 @@
+\beamer@sectionintoc {1}{Informazioni generali}{2}{0}{1}
+\beamer@sectionintoc {2}{Introduzione}{3}{0}{2}
+\beamer@sectionintoc {3}{Conoscenze preliminari}{5}{0}{3}
+\beamer@sectionintoc {4}{La crittografia post-quantistica basata su codici}{7}{0}{4}
+\beamer@subsectionintoc {4}{1}{I crittosistemi di Ajtai-Dwork e di Regev}{9}{0}{4}
+\beamer@subsectionintoc {4}{2}{I crittosistemi di Alekhnovich}{10}{0}{4}
+\beamer@subsectionintoc {4}{3}{Lo schema quasi-ciclico}{11}{0}{4}
+\beamer@sectionintoc {5}{Confronto tra i cifrari}{12}{0}{5}
+\beamer@subsectionintoc {5}{1}{I parametri scelti}{12}{0}{5}
+\beamer@subsectionintoc {5}{2}{I risultati ottenuti}{14}{0}{5}
+\beamer@sectionintoc {6}{Le conclusioni ottenute}{16}{0}{6}
+\beamer@sectionintoc {7}{Bibliografia}{18}{0}{7}

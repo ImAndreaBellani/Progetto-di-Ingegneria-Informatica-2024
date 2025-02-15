@@ -1,0 +1,432 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{15}{article}{}
+      \name{author}{1}{}{%
+        {{hash=4799d288571eea25360d24a487b336b3}{%
+           family={Alekhnovich},
+           familyi={A\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{4799d288571eea25360d24a487b336b3}
+      \strng{fullhash}{4799d288571eea25360d24a487b336b3}
+      \strng{bibnamehash}{4799d288571eea25360d24a487b336b3}
+      \strng{authorbibnamehash}{4799d288571eea25360d24a487b336b3}
+      \strng{authornamehash}{4799d288571eea25360d24a487b336b3}
+      \strng{authorfullhash}{4799d288571eea25360d24a487b336b3}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{More on average case vs approximation complexity}
+      \field{year}{2003}
+    \endentry
+    \entry{11}{book}{}
+      \name{author}{1}{}{%
+        {{hash=4265292f2f41c9f44d4fcfa3f064dc41}{%
+           family={Bellani},
+           familyi={B\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{fullhash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{bibnamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authorbibnamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authornamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authorfullhash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \field{extraname}{1}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Algoritmi e principi dell'Informatica (appunti del corso)}
+      \field{year}{2022}
+    \endentry
+    \entry{6}{book}{}
+      \name{author}{1}{}{%
+        {{hash=4265292f2f41c9f44d4fcfa3f064dc41}{%
+           family={Bellani},
+           familyi={B\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{fullhash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{bibnamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authorbibnamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authornamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authorfullhash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \field{extraname}{2}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Geometria e algebra lineare (appunti del corso)}
+      \field{year}{2021}
+    \endentry
+    \entry{2}{book}{}
+      \name{author}{1}{}{%
+        {{hash=4265292f2f41c9f44d4fcfa3f064dc41}{%
+           family={Bellani},
+           familyi={B\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{fullhash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{bibnamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authorbibnamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authornamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authorfullhash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \field{extraname}{3}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Logica e algebra (appunti del corso)}
+      \field{year}{2022}
+    \endentry
+    \entry{1}{book}{}
+      \name{author}{1}{}{%
+        {{hash=4265292f2f41c9f44d4fcfa3f064dc41}{%
+           family={Bellani},
+           familyi={B\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{fullhash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{bibnamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authorbibnamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authornamehash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \strng{authorfullhash}{4265292f2f41c9f44d4fcfa3f064dc41}
+      \field{extraname}{4}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Probabilità e statistica per l'Informatica (appunti del corso)}
+      \field{year}{2023}
+    \endentry
+    \entry{7}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e8b852cd24dcb36a2e29e213225fe164}{%
+           family={Debris-Alazard},
+           familyi={D\bibinithyphendelim A\bibinitperiod},
+           given={M.\bibnamedelimi Bombar\bibnamedelimb A.\bibnamedelimi Couvreur\bibnamedelima T.},
+           giveni={M\bibinitperiod\bibinitdelim B\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \strng{namehash}{e8b852cd24dcb36a2e29e213225fe164}
+      \strng{fullhash}{e8b852cd24dcb36a2e29e213225fe164}
+      \strng{bibnamehash}{e8b852cd24dcb36a2e29e213225fe164}
+      \strng{authorbibnamehash}{e8b852cd24dcb36a2e29e213225fe164}
+      \strng{authornamehash}{e8b852cd24dcb36a2e29e213225fe164}
+      \strng{authorfullhash}{e8b852cd24dcb36a2e29e213225fe164}
+      \field{extraname}{1}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{On Codes and Learning With Errors Over Function Fields}
+      \field{year}{2022}
+    \endentry
+    \entry{10}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e8b852cd24dcb36a2e29e213225fe164}{%
+           family={Debris-Alazard},
+           familyi={D\bibinithyphendelim A\bibinitperiod},
+           given={M.\bibnamedelimi Bombar\bibnamedelimb A.\bibnamedelimi Couvreur\bibnamedelima T.},
+           giveni={M\bibinitperiod\bibinitdelim B\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \strng{namehash}{e8b852cd24dcb36a2e29e213225fe164}
+      \strng{fullhash}{e8b852cd24dcb36a2e29e213225fe164}
+      \strng{bibnamehash}{e8b852cd24dcb36a2e29e213225fe164}
+      \strng{authorbibnamehash}{e8b852cd24dcb36a2e29e213225fe164}
+      \strng{authornamehash}{e8b852cd24dcb36a2e29e213225fe164}
+      \strng{authorfullhash}{e8b852cd24dcb36a2e29e213225fe164}
+      \field{extraname}{2}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Pseudorandomness of Decoding, Revisited: Adapting OHCP to Code-Based Cryptography}
+      \field{year}{2023}
+    \endentry
+    \entry{18}{article}{}
+      \name{author}{1}{}{%
+        {{hash=32bdd0be612272731cb0838fe2e74fcb}{%
+           family={Dwork},
+           familyi={D\bibinitperiod},
+           given={M.\bibnamedelimi Ajtai\bibnamedelima C.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{32bdd0be612272731cb0838fe2e74fcb}
+      \strng{fullhash}{32bdd0be612272731cb0838fe2e74fcb}
+      \strng{bibnamehash}{32bdd0be612272731cb0838fe2e74fcb}
+      \strng{authorbibnamehash}{32bdd0be612272731cb0838fe2e74fcb}
+      \strng{authornamehash}{32bdd0be612272731cb0838fe2e74fcb}
+      \strng{authorfullhash}{32bdd0be612272731cb0838fe2e74fcb}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Public-Key Cryptosystem with Worst-Case/Average-Case Equivalence}
+      \field{year}{1997}
+    \endentry
+    \entry{4}{book}{}
+      \name{author}{1}{}{%
+        {{hash=640b4c7d95d7e7fdd4aa1db68ab5607f}{%
+           family={Gill},
+           familyi={G\bibinitperiod},
+           given={J.T.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{640b4c7d95d7e7fdd4aa1db68ab5607f}
+      \strng{fullhash}{640b4c7d95d7e7fdd4aa1db68ab5607f}
+      \strng{bibnamehash}{640b4c7d95d7e7fdd4aa1db68ab5607f}
+      \strng{authorbibnamehash}{640b4c7d95d7e7fdd4aa1db68ab5607f}
+      \strng{authornamehash}{640b4c7d95d7e7fdd4aa1db68ab5607f}
+      \strng{authorfullhash}{640b4c7d95d7e7fdd4aa1db68ab5607f}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Algebraic Error Correcting Codes (lectures notes)}
+      \field{year}{2015}
+    \endentry
+    \entry{14}{article}{}
+      \name{author}{1}{}{%
+        {{hash=b1519ad441b82d6cf85ef903371adb15}{%
+           family={Lyubashevsky},
+           familyi={L\bibinitperiod},
+           given={V.},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{b1519ad441b82d6cf85ef903371adb15}
+      \strng{fullhash}{b1519ad441b82d6cf85ef903371adb15}
+      \strng{bibnamehash}{b1519ad441b82d6cf85ef903371adb15}
+      \strng{authorbibnamehash}{b1519ad441b82d6cf85ef903371adb15}
+      \strng{authornamehash}{b1519ad441b82d6cf85ef903371adb15}
+      \strng{authorfullhash}{b1519ad441b82d6cf85ef903371adb15}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Basic Lattice Cryptography}
+      \field{year}{2020}
+    \endentry
+    \entry{5}{book}{}
+      \name{author}{1}{}{%
+        {{hash=a6dbb773513df1108686f304e8a651cd}{%
+           family={Papini},
+           familyi={P\bibinitperiod},
+           given={M.\bibnamedelimi Francischello\bibnamedelima O.},
+           giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+      }
+      \strng{namehash}{a6dbb773513df1108686f304e8a651cd}
+      \strng{fullhash}{a6dbb773513df1108686f304e8a651cd}
+      \strng{bibnamehash}{a6dbb773513df1108686f304e8a651cd}
+      \strng{authorbibnamehash}{a6dbb773513df1108686f304e8a651cd}
+      \strng{authornamehash}{a6dbb773513df1108686f304e8a651cd}
+      \strng{authorfullhash}{a6dbb773513df1108686f304e8a651cd}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Teoria dei Codici e Crittografia}
+      \field{year}{2012}
+    \endentry
+    \entry{12}{article}{}
+      \name{author}{1}{}{%
+        {{hash=3409145d629d9f1e18a5349dc7afd86f}{%
+           family={Peikert},
+           familyi={P\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{3409145d629d9f1e18a5349dc7afd86f}
+      \strng{fullhash}{3409145d629d9f1e18a5349dc7afd86f}
+      \strng{bibnamehash}{3409145d629d9f1e18a5349dc7afd86f}
+      \strng{authorbibnamehash}{3409145d629d9f1e18a5349dc7afd86f}
+      \strng{authornamehash}{3409145d629d9f1e18a5349dc7afd86f}
+      \strng{authorfullhash}{3409145d629d9f1e18a5349dc7afd86f}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Decade of Lattice Cryptography}
+      \field{year}{2016}
+    \endentry
+    \entry{17}{article}{}
+      \name{author}{1}{}{%
+        {{hash=3426745f6965bd270ab9a9ff63e5fea4}{%
+           family={Regev},
+           familyi={R\bibinitperiod},
+           given={O.},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{3426745f6965bd270ab9a9ff63e5fea4}
+      \strng{fullhash}{3426745f6965bd270ab9a9ff63e5fea4}
+      \strng{bibnamehash}{3426745f6965bd270ab9a9ff63e5fea4}
+      \strng{authorbibnamehash}{3426745f6965bd270ab9a9ff63e5fea4}
+      \strng{authornamehash}{3426745f6965bd270ab9a9ff63e5fea4}
+      \strng{authorfullhash}{3426745f6965bd270ab9a9ff63e5fea4}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{On Lattices, Learning with Errors, Random Linear Codes, and Cryptography}
+      \field{year}{2009}
+    \endentry
+    \entry{8}{article}{}
+      \name{author}{1}{}{%
+        {{hash=83910fd1b2418f91b9ff567ce80decb7}{%
+           family={Rosenthal},
+           familyi={R\bibinitperiod},
+           given={V.\bibnamedelimi Weger\bibnamedelimb N.\bibnamedelimi Gassner\bibnamedelima J.},
+           giveni={V\bibinitperiod\bibinitdelim W\bibinitperiod\bibinitdelim N\bibinitperiod\bibinitdelim G\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{83910fd1b2418f91b9ff567ce80decb7}
+      \strng{fullhash}{83910fd1b2418f91b9ff567ce80decb7}
+      \strng{bibnamehash}{83910fd1b2418f91b9ff567ce80decb7}
+      \strng{authorbibnamehash}{83910fd1b2418f91b9ff567ce80decb7}
+      \strng{authornamehash}{83910fd1b2418f91b9ff567ce80decb7}
+      \strng{authorfullhash}{83910fd1b2418f91b9ff567ce80decb7}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Survey on Code-based Cryptography}
+      \field{year}{2024}
+    \endentry
+    \entry{19}{book}{}
+      \name{author}{1}{}{%
+        {{hash=b636dad1fb8264c4391badaa93b090f8}{%
+           family={Rosulek},
+           familyi={R\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{b636dad1fb8264c4391badaa93b090f8}
+      \strng{fullhash}{b636dad1fb8264c4391badaa93b090f8}
+      \strng{bibnamehash}{b636dad1fb8264c4391badaa93b090f8}
+      \strng{authorbibnamehash}{b636dad1fb8264c4391badaa93b090f8}
+      \strng{authornamehash}{b636dad1fb8264c4391badaa93b090f8}
+      \strng{authorfullhash}{b636dad1fb8264c4391badaa93b090f8}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Joy of Cryptography}
+      \field{year}{2021}
+    \endentry
+    \entry{3}{book}{}
+      \name{author}{1}{}{%
+        {{hash=54cea8d438df699298370a0dd16a47b8}{%
+           family={Sudan},
+           familyi={S\bibinitperiod},
+           given={V.\bibnamedelimi Guruswami\bibnamedelimb A.\bibnamedelimi Rudra\bibnamedelima M.},
+           giveni={V\bibinitperiod\bibinitdelim G\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim R\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{54cea8d438df699298370a0dd16a47b8}
+      \strng{fullhash}{54cea8d438df699298370a0dd16a47b8}
+      \strng{bibnamehash}{54cea8d438df699298370a0dd16a47b8}
+      \strng{authorbibnamehash}{54cea8d438df699298370a0dd16a47b8}
+      \strng{authornamehash}{54cea8d438df699298370a0dd16a47b8}
+      \strng{authorfullhash}{54cea8d438df699298370a0dd16a47b8}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Essential Coding Theory}
+      \field{year}{2023}
+    \endentry
+    \entry{16}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e22726bcbf52a871e86e249403abc2a6}{%
+           family={team},
+           familyi={t\bibinitperiod},
+           given={HQC},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{e22726bcbf52a871e86e249403abc2a6}
+      \strng{fullhash}{e22726bcbf52a871e86e249403abc2a6}
+      \strng{bibnamehash}{e22726bcbf52a871e86e249403abc2a6}
+      \strng{authorbibnamehash}{e22726bcbf52a871e86e249403abc2a6}
+      \strng{authornamehash}{e22726bcbf52a871e86e249403abc2a6}
+      \strng{authorfullhash}{e22726bcbf52a871e86e249403abc2a6}
+      \field{sortinit}{t}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{HQC: Hamming Quasi-Cyclic}
+      \field{year}{2021}
+    \endentry
+    \entry{13}{article}{}
+      \name{author}{1}{}{%
+        {{hash=41e0c8df057f400d8443b16936903f04}{%
+           family={Zémor},
+           familyi={Z\bibinitperiod},
+           given={C.\bibnamedelimi Aguilar-Melchor\bibnamedelimb O.\bibnamedelimi Blazy\bibnamedelimb J.\bibnamedelimi Deneuville\bibnamedelimb P.\bibnamedelimi Gaborit\bibnamedelima G.},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinithyphendelim M\bibinitperiod\bibinitdelim O\bibinitperiod\bibinitdelim B\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim G\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{41e0c8df057f400d8443b16936903f04}
+      \strng{fullhash}{41e0c8df057f400d8443b16936903f04}
+      \strng{bibnamehash}{41e0c8df057f400d8443b16936903f04}
+      \strng{authorbibnamehash}{41e0c8df057f400d8443b16936903f04}
+      \strng{authornamehash}{41e0c8df057f400d8443b16936903f04}
+      \strng{authorfullhash}{41e0c8df057f400d8443b16936903f04}
+      \field{extraname}{1}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Efficient Encryption From Random Quasi-Cyclic Codes}
+      \field{year}{2018}
+    \endentry
+    \entry{9}{article}{}
+      \name{author}{1}{}{%
+        {{hash=fd8a690a12d0b44855f4113bc778188f}{%
+           family={Zémor},
+           familyi={Z\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{fd8a690a12d0b44855f4113bc778188f}
+      \strng{fullhash}{fd8a690a12d0b44855f4113bc778188f}
+      \strng{bibnamehash}{fd8a690a12d0b44855f4113bc778188f}
+      \strng{authorbibnamehash}{fd8a690a12d0b44855f4113bc778188f}
+      \strng{authornamehash}{fd8a690a12d0b44855f4113bc778188f}
+      \strng{authorfullhash}{fd8a690a12d0b44855f4113bc778188f}
+      \field{extraname}{2}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Notes on Alekhnovich's cryptosystems}
+      \field{year}{2016}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

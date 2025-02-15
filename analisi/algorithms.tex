@@ -1,0 +1,152 @@
+\usepackage[linesnumbered, ruled]{algorithm2e}
+
+
+	\newcommand{\algOne}
+	{
+		\begin{algorithm}[h]
+			\SetAlgoLined
+			\KwInput{$b\in\{0,1\},H\in\{0,1\}^{n\times m},t\in\mathbbm{N},B\subseteq\{0,1\}^{1\times n}\ campo,e\in B$}
+			
+			\KwOutput{$s \in \mathbb{F}_2^{1\times n}$}
+			
+			\eIf{$b$ is 0}
+			{
+				$s \gets \textsc{randFromCode}(H,t)+e$
+			}
+			{
+				$s \gets \textsc{randFromField}(\mathbb{F}_2^{1\times n})$
+			}
+			\Return
+			\caption{Processo di crittazione del primo crittosistema di Alekhnovich}\label{alg:cap}
+		\end{algorithm}
+	}
+	\newcommand{\algTwo}
+	{
+		\begin{algorithm}[h]
+			\SetAlgoLined
+			\KwInput{$s\in\{0,1\}^{1\times n},e\in B$}
+			
+			\KwOutput{$b\in\{0,1\}$}
+			
+			$b \gets \langle s,e\rangle$
+			
+			\Return
+			\caption{Processo di decrittazione del primo crittosistema di Alekhnovich}\label{alg:cap}
+		\end{algorithm}	
+	}
+	
+	\newcommand{\algThree}
+	{
+		\begin{algorithm}[h]
+			\SetAlgoLined
+			\KwInput{$\{0,1\}^{1\times n}\in msg,F_{half}\subseteq\{0,1\}^{1\times m} campo, t\in\mathbbm{N},F\subseteq\{0,1\}^{1\times n}\ campo$}
+			
+			\KwOutput{$s\in\{0,1\}^{1\times n}$}
+			
+			$x \gets [msg,\textsc{randFromField}(F_{half},t)]$
+			
+			$s \gets xG+\textsc{randFromField}(F, t)$
+
+			\Return
+			\caption{Processo di crittazione del secondo crittosistema di Alekhnovich}\label{alg:cap}
+		\end{algorithm}
+	}
+	
+	\newcommand{\algFour}
+	{
+		\begin{algorithm}[h]
+			\SetAlgoLined
+			\KwInput{$E\in\{0,1\}^{n\times n},s\in\{0,1\}^{1\times n},decode:\mathfrak{C}_0\rightarrow\mathbbm{F}^{n\times 1}_2$}
+			
+			\KwOutput{$msg\in\{0,1\}^{1\times n}$}
+
+			$y \gets Es^T$
+			
+			$y \gets y^T$
+			
+			$msg \gets decode(y)M^{-1}G^{-1}$
+
+			\Return
+			\caption{Processo di decrittazione del seocondo crittosistema di Alekhnovich}\label{alg:cap}
+		\end{algorithm}	
+	}
+	
+	\newcommand{\algFive}
+	{
+		\begin{algorithm}[h]
+			\SetAlgoLined
+			\KwInput{$G\in\mathbbm{K}^{k\times n}\,s=mG+e$}
+			
+			\KwOutput{$m\in\{0,1\}^{1\times k}$}
+
+			$e \gets \textsc{discover}([G,s])$
+			
+			$a \gets s-e$
+			
+			$m \gets a G^{-1}$
+			
+			\Return
+			\caption{Riduzione al Search Decoding Problem per PKDA}\label{alg:cap}
+		\end{algorithm}
+	}
+	
+	\newcommand{\algSix}
+	{
+		\begin{algorithm}[h]
+			\SetAlgoLined
+			\KwInput{$G\in\mathbbm{K}^{k\times n},s=mG+e$}
+			
+			\KwOutput{$m\in\{0,1\}^{1\times k}$}
+
+			$E \gets \textsc{discover}(G,(1,\dots,1)^Ts)$
+			
+			$e \gets E_0$ //prima riga di $E$
+			
+			$a \gets s-e$
+			
+			$m \gets a G^{-1}$
+
+			\Return
+			\caption{Riduzione al Search Decoding Problem per PKDA}\label{alg:cap}
+		\end{algorithm}
+	}
+	
+	\newcommand{\algSeven}
+	{
+		\begin{algorithm}[h]
+			\SetAlgoLined
+			\KwInput{$w_r,k,q\in\mathbbm{N},
+				r_1=\textsc{randFromField}(F,w_r),
+				r_2=\textsc{randFromField}(F,w_r),
+				G\in\mathbbm{F}^{k\times n}_q,
+				m,s\in\mathbbm{F}^{1\times n}_q,
+				h\in\mathbbm{F}^{1\times n}_q$}
+			
+			\KwOutput{$cpr\in\mathbbm{F}^{1\times 2n}_q$}
+			
+			$u \gets r_1+h r_2$
+			
+			$v \gets mG+s r_1+e$
+			
+			$cpr \gets [u,v]$
+			
+			\Return
+			\caption{Processo di crittazione dello schema quasi-ciclico}\label{alg:cap}
+		\end{algorithm}
+	}
+	
+	\newcommand{\algEight}
+	{
+		\begin{algorithm}[h]
+			\SetAlgoLined
+			\KwInput{$F\subseteq\{0,1\}^{1\times n}\ campo,cpr\in\{0,1\}^{1\times 2n},z\in F,decode:\mathfrak{C}\rightarrow\mathbbm{F}^k_q$}
+			
+			\KwOutput{$msg\in \{0,1\}^{1\times n}$}
+				
+			$msg \gets decode(cpr.secondHalf-cpr.firstHalf\ z)$
+
+			\Return
+			\caption{Processo di decrittazione dello schema quasi-ciclico}\label{alg:cap}
+		\end{algorithm}	
+	}
+	\endinput 

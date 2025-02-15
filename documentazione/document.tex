@@ -1,0 +1,223 @@
+\documentclass[12pt, a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{fonti.bib}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{algpseudocode}
+%\usepackage{algorithm}
+\usepackage{bbold}
+\usepackage{eufrak}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage[linesnumbered, ruled]{algorithm2e}
+\usepackage{hyperref}
+\hypersetup{
+	pdftitle={Analisi comparativa e sistematizzazione di cifrari post-quantum basati su codici casuali (documentazione)},
+	pdfauthor={Andrea Bellani},
+	pdfsubject={Ingegneria Informatica},
+	pdfkeywords={Crittografia post-quantistica, Crittografia basata su codici, Crittosistemi di Alekhnovich, Hamming quasi-cyclic, Progetto di Ingegneria Informatica, Politecnico di Milano},
+	pdfcreator={LaTeX},
+}
+
+\SetAlCapSkip{1em}
+
+\SetKwInput{KwInput}{Input}
+\SetKwInput{KwOutput}{Output}
+
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\begin{document}
+	\addtocounter{chapter}{-1}
+	\title{Analisi comparativa e sistematizzazione di cifrari post-quantum basati su codici casuali (documentazione)}
+	\author{Andrea Bellani}
+	\date{\today}
+	
+	\maketitle
+	
+	\tableofcontents
+	
+	\chapter{Informazioni generali}
+		\begin{itemize}
+			\item informazioni studente:
+				\begin{itemize}
+					\item nome: Andrea Bellani (codice persona: 10733192, matricola: 956505)
+					\item corso di studi: Ingegneria Informatica (laurea di primo livello)
+				\end{itemize}
+			\item informazioni progetto:
+				\begin{itemize}
+					\item nome progetto: Analisi comparativa e sistematizzazione di cifrari post-quantum basati su codici casuali
+					\item docente responsabile: prof. Alessandro Barenghi
+					\item aree di competenza: algoritmi, crittografia
+				\end{itemize}
+		\end{itemize}
+	\chapter{Specifiche}
+		\section{Obbiettivo}
+			Lo scopo dell'analisi è quello di fornire una visione di insieme su alcuni cifrari post-quantum basati su codici casuali. In particolare, mantenendo un approccio didattico, l'analisi illustra e confronta i crittosistemi di Alekhnovich con lo schema quasi-ciclico, sia sotto il profilo delle meccaniche di funzionamento, che sotto l'aspetto dell'utilità pratica.
+			
+			Al tempo stesso, l'analisi riassume e riorganizza i concetti preliminari affrontati nei corsi della laurea triennale di \emph{Ingegneria Informatica} necessari ad approcciare lo studio della crittografia basata su codici.
+		\section{Specifica}
+			Il progetto ha lo scopo di offrire allo studente un'occasione per applicare le conoscenze acquisite durante il percorso di laurea triennale. Lo studente, partendo da una bibliografia di riferimento dovrà:
+			\begin{itemize}
+				\item riassumere i concetti preliminari (affrontati nel proprio percorso di studi) necessari ad affrontare l'analisi che andrà a redarre;
+				\item descrivere i crittosistemi di Alekhnovich e lo schema quasi-ciclico;
+				\item riportare (e se necessario ideare) dimostrazioni di sicurezza per i crittosistemi di Alekhnovich;
+				\item utilizzare un \emph{argomento per ibridi} per trasformare i crittosistemi di Alekhnovich nello schema quasi-ciclico;
+				\item delineare un set di parametri per confrontare i cifrari analizzati (con particolare enfasi sull'efficienza computazionale e le prove formali di sicurezza).
+			\end{itemize}
+			
+			Si valuta anche la capacità dello studente di ricercare, consultare e riportare ulteriori fonti bibliografiche (attendibili) se necessario.
+				
+			Lo studente redarrà l'analisi in Tex, seguendo le linee editoriali della letteratura scientifica del settore.
+		\section{Analisi della specifica}
+			L'analisi è stata così suddivisa:
+			\begin{enumerate}
+				\item \textbf{Concetti preliminari} : vengono riassunti e ordinati tutti i concetti preliminari utili ad affrontare la crittografia basata su codici;
+				\item \textbf{Considerazioni preliminari sugli algoritmi presentati} : si delineano le assunzioni e le procedure di base con cui sono stati scritti tutti gli algoritmi illustrati nelle sezioni seguenti;
+				\item \textbf{La crittografia basata su reticoli} : breve introduzione sui crittosistemi (non approfonditi successivamente) da cui si ispirano i crittosistemi di Alekhnovich e lo schema quasi-ciclico;
+				\item \textbf{I crittosistemi di Alekhnovich} : si illustrano il primo e il secondo crittosistema di Alekhnovich (chiavi e processi di criptazione e decrittazione), più le relative prove formali di sicurezza;
+				\item \textbf{Lo schema quasi-ciclico} : si illustra lo schema quasi-ciclico (chiavi e processo di criptazione e decrittazione), senza le prove formali di sicurezza;
+				\item \textbf{Analogie tra i crittosistemi analizzati} : si utilizza un argomento per ibridi per mostrare come sotto determinate ipotesi, sia possibile trasformare il processo di criptazione del secondo crittosistema di Alekhnovich nello schema quasi-ciclico;
+				\item \textbf{Analisi comparativa dei cifrari analizzati} : si delinea un set di parametri per confrontare quantitativamente i cifrari e lo si utilizza per mostrare come, tra i crittosistemi analizzati, solo lo schema quasi-ciclico possa essere di utilità pratica.
+			\end{enumerate}
+		Ciascuna definizione, assunzione o dimostrazione cita opportunamente gli articoli, menzionati nella bibliografia, da cui è stata estrapolata.
+	\chapter{Realizzazione}
+		\section{Riordino dei concetti preliminari}
+			I concetti preliminari sono stati delineati a cominciare da quelli logico-matematici, per poi spostarsi su quelli prettamente informatici e quelli di teoria dei codici lineari (i quali sono gli unici, insieme all'argomento per ibridi, a non essere affrontati in altri corsi di \emph{Ingegneria Informatica}):
+			\begin{itemize}
+				\item \textbf{Probabilità} : distribuzione di probabilità uniforme;
+				\item \textbf{Strutture algebriche} : Gruppi, Anelli, Campi, Ideali generati da polinomi, Anelli quozienti generati da polinomi;
+				\item \textbf{Teoria dei codici lineari} : Codice duale, Matrice generatrice, Matrice di parità, Sindrome, Peso di un vettore, Distanza di Hamming, Rotazione di un vettore, Codici ciclici;
+				\item \textbf{Teoria della computazione} : La complessità computazionale, La complessità asintotica, Macchina di Turing, Tesi di Church-Turing, Problemi NP ed NP-Hard;
+				\item \textbf{Crittografia} : Crittografia asimmetrica, Search decoding problem, Decisional decoding problem, Ipotesi di Fisher-Stern, Argomento per ibridi.
+			\end{itemize}
+		\section{Analisi dei crittosistemi}
+			Ciascun crittosistema è stato illustrato dettagliando:
+			\begin{itemize}
+				\item il set di informazioni pubbliche;
+				\item il set di informazioni private;
+				\item il processo di criptazione (in pseudo-codice);
+				\item il processo di decrittazione (in pseudo-codice).
+			\end{itemize}
+			Mentre per approfondire le analogie teoriche:
+			\begin{itemize}
+				\item si sono illustrati brevemente i crittosistemi di Ajtai-Dwork e Regev;
+				\item costruito un argomento per ibridi per mostrare come, sotto le assunzioni riportate, il secondo crittosistema di Alekhnovich sia equivalente allo schema quasi-ciclico.
+			\end{itemize} 
+		\section{Formulazione delle prove formali di sicurezza}
+			Abbiamo distinto due tipologie di attacchi (i nomi sono di nostra invenzione):
+			\begin{itemize}
+				\item \emph{Third Man Decryption Attack} : attacco finalizzato a decodificare con successo informazioni criptate senza l’utilizzo della chiave privata;
+				\item \emph{Private Key Deduction Attack} : attacco finalizzato al calcolo della chiave privata da quella pubblica.
+			\end{itemize}
+			Le dimostrazioni di sicurezza per Third Man Decryption Attack sono state prese dagli articoli forniti, mentre le dimostrazioni contro il Private Key Deduction Attack sono state ideate dall'autore e sono entrambe "per riduzione": si dimostra come un attaccante in grado di effettuare con successo l'attacco, sarebbe anche in grado di risolvere in complessità polinomiale uno dei problemi che si assume siano irrisolvibili (in complessità polinomiale). Queste, sono presentate come algoritmi in pseudo-codice.
+		\section{Confronto tra i cifrari}
+			Il primo passo per il confronto tra i cifrari è stato quello di delineare un corpus di parametri che fossero allo stesso tempo:
+			\begin{itemize}
+				\item utilizzabili per confrontare quantitativamente i crittosistemi;
+				\item già precedentemente illustrati nell'analisi;
+				\item non strettamente legati ai cifrari analizzati (e dunque estendibili al confronto di altri cifrari);
+				\item utili ad evidenziare come lo schema quasi-ciclico è l'unico ad avere un'utilità pratica.
+			\end{itemize}
+			In particolare, i crittosistemi sono stati confrontati per:
+				\begin{itemize}
+					\item parametri legati alle dimensioni:
+					\begin{itemize}
+						\item dimensione delle chiavi: dimensioni di chiave pubblica e privata sul numero di bit messaggio;
+						\item dimensione dei messaggi: rapporto tra numero di simboli di controllo sul numero di simboli di informazione;
+					\end{itemize}
+					\item parametri legati alle complessità temporali:
+					\begin{itemize}
+						\item complessità del processo di codifica;
+						\item complessità del processo di decodifica;
+					\end{itemize}
+					\item parametri legati alla sicurezza:
+					\begin{itemize}
+						\item teoremi a cui è ridotta la loro sicurezza;
+					\end{itemize}
+					\item parametri legati alla correttezza:
+					\begin{itemize}
+						\item probabilità di decrittare correttamente il contenuto di un messaggio.
+					\end{itemize}
+				\end{itemize}
+	\chapter{Conclusioni ottenute}
+		In questo lavoro:
+		\begin{itemize}
+			\item abbiamo organizzato le informazioni utili allo studio dei crittosistemi (estrapolandole sia dai corsi seguiti nella laurea triennale di Ingegneria Informatica che dalla lettura scientifica di interesse);
+			\item si sono individuate analogie tra crittosistemi basati su teorie differenti (i crittosistemi basati su reticoli coi crittosistemi basati su codici);
+			\item abbiamo applicato un argomento per ibridi per trasformare i crittosistemi di Alekhnovich nello schema quasi-ciclico;
+			\item abbiamo, ove necessario, ideato dimostrazioni di sicurezza dei crittosistemi "per riduzione";
+			\item si è stabilito un set di parametri per il confronto di cifrari che ci ha permesso di evidenziarne i punti di forza e debolezza di questi ultimi (nel momento in cui li si volesse utilizzare per un'implementazione pratica);
+			\item siamo riusciti a evidenziare (grazie a un argomento per ibridi e ai parametri delineati nel confronto) come la differenza tra le meccaniche utilizzate dai crittosistemi di Alekhnovich e quelle utilizzate dallo schema quasi-ciclico non sia così significativa. Ciononostante, quest'ultimo offre prestazioni sufficientemente buone da poter essere la base per un'effettiva implementazione pratica (\emph{HQC: Hamming Quasi-Cyclic}).
+		\end{itemize}
+	\chapter{Bibliografia}
+		Possiamo suddividere i documenti utilizzati per redarre l'analisi in:
+			\begin{itemize}
+				\item \emph{Appunti corsi}: appunti presi dallo studente nei corsi di interesse per l'analisi:
+					\begin{itemize}
+						\item A. Bellani - Algoritmi e principi dell'informatica (2022)
+						\item A. Bellani - Geometria e algebra lineare (2021)
+						\item A. Bellani - Logica e algebra (2022)
+						\item A. Bellani - Probabilità e statistica per l'informatica (2023)
+					\end{itemize}
+				\item \emph{Altro materiale didattico} : materiale didattico (esterno ai corsi seguiti) per integrare le conoscenze preliminari non coperte dai corsi sostenuti:
+					\begin{itemize}
+						\item J.T. Gill - Algebraic Error Correcting Codes (lectures notes) (2015)
+						\item M. Francischello, O. Papini - Teoria dei Codici e Crittografia (2012)
+						\item M. Sudan, V. Guruswami, A. Rudra - Essential Coding Theory (2023)
+						\item M. Rosulek - The Joy of Cryptography (2021)
+					\end{itemize}
+				\item \emph{Articoli di riferimento} : articoli forniti dal docente per affrontare l'analisi:
+					\begin{itemize}
+						\item articoli di riferimento sui crittosistemi di Alekhnovich:
+							\begin{itemize}
+								\item M. Alekhnovich - More on average case vs approximation complexity (2003)
+								\item G. Zémor - Notes on Alekhnovich’s cryptosystems (2016)
+							\end{itemize}
+						\item articoli di riferimento sullo schema quasi-ciclico:
+							\begin{itemize}
+								\item HQC team - HQC: Hamming Quasi-Cyclic (2021)
+							\end{itemize}
+					\end{itemize}
+				\item \emph{Articoli di approfondimento} : articoli trovati dallo studente per approfondire e/o chiarificare gli argomenti trattati/accennati negli articoli di riferimento:
+					\begin{itemize}
+						\item M. Bombar, A. Couvreur, T. Debris-Alazard - On Codes and Learning With Errors Over
+						Function Fields (2022)
+						\item M. Bombar, A. Couvreur, T. Debris-Alazard - Pseudorandomness of Decoding, Revisited:
+						Adapting OHCP to Code-Based Cryptography (2023)
+						\item C. Dwork, M. Ajtai - A Public-Key Cryptosystem with Worst-Case/Average-Case 
+						Equivalence (1997)
+						\item O. Regev - On Lattices, Learning with Errors, Random Linear Codes, and Cryptography (2009)
+						\item C. Aguilar-Melchor, O. Blazy, J. Deneuville, P. Gaborit, G. Zémor - Efficient Encryption
+						From Random Quasi-Cyclic Codes (2018)
+					\end{itemize}
+				\item \emph{Articoli riepilogativi} : articoli utili ad avere una visione di insieme più chiara e uniforme:
+					\begin{itemize}
+						\item C. Peikert - A Decade of Lattice Cryptography (2016)
+						\item V. Weger, N. Gassner, J. Rosenthal - A Survey on Code-based Cryptography (2024)
+						\item V. Lyubashevsky - Basic Lattice Cryptography (2020)
+					\end{itemize}
+			\end{itemize}
+	\chapter{Report di svolgimento}
+		\begin{itemize}
+			\item 15/09/2023 : riordino materiali forniti dal docente;
+			\item 11/07/2024 : prima versione dell'analisi. Raggruppamento dei concetti preliminari, analisi dettagliata dei crittosistemi, definizione parametri per il confronto e prima versione del confronto;
+			\item 21/08/2024 : aggiunte procedure di criptazione e decrittazione in pseudo-codice. Aggiunta capitolo sui crittosistemi di Ajtai-Dwork e Regev. Prima definizione delle analogie teoriche tra i crittosistemi analizzati;
+			\item 27/08/2024 : aggiunta prove di sicurezza;
+			\item 21/11/2024 : aggiunta argomento per ibridi;
+			\item 19/12/2024 : presentazione sintetica;
+			\item 19/01/2025 : stesura documentazione.
+		\end{itemize}
+\end{document}

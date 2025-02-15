@@ -1,0 +1,317 @@
+\documentclass[10pt]{beamer}
+\usetheme{Marburg}
+\usepackage{chronology}
+\usepackage{hyperref}
+\hypersetup{
+	pdftitle={Analisi comparativa e sistematizzazione di cifrari post-quantum basati su codici casuali (presentazione)},
+	pdfauthor={Andrea Bellani},
+	pdfsubject={Ingegneria Informatica},
+	pdfkeywords={Crittografia post-quantistica, Crittografia basata su codici, Crittosistemi di Alekhnovich, Hamming quasi-cyclic, Progetto di Ingegneria Informatica, Politecnico di Milano},
+	pdfcreator={LaTeX},
+}
+
+% Imposta il tema esterno che include i dot di progresso
+%\useoutertheme{miniframes}
+
+% Definizione del colore viola tendente al bordeaux
+\definecolor{myviolet}{RGB}{236, 235, 242}
+\definecolor{mydarkviolet}{RGB}{29, 3, 112}
+%\definecolor{myviolet}{RGB}{247, 67, 67}
+%\definecolor{mydarkviolet}{RGB}{97, 5, 5}
+
+\definecolor{backgroundcolor}{RGB}{213, 224, 240}
+
+\setbeamercolor{background canvas}{bg=backgroundcolor}
+
+% Tema e colori personalizzati
+\setbeamercolor{normal text}{fg=white, bg=white}  % Testo nero su sfondo bianco
+\setbeamercolor{frametitle}{fg=black, bg=myviolet}  % Titoli delle slide in bianco su sfondo viola bordeaux
+\setbeamercolor{structure}{fg=mydarkviolet}            % Colore delle sezioni viola bordeaux
+\setbeamercolor{section in head/foot}{fg=white, bg=mydarkviolet}  % Intestazione/piede viola bordeaux
+\setbeamercolor{author in head/foot}{fg=black, bg=myviolet} 
+\setbeamercolor{date in head/foot}{fg=black, bg=myviolet}
+\setbeamercolor{normal text}{fg=black, bg=backgroundcolor}
+
+% Rimuove i simboli di navigazione standard
+%\setbeamertemplate{navigation symbols}{}
+
+% Imposta il titolo della presentazione in un riquadro colorato
+\setbeamertemplate{title page}{
+	\begin{beamercolorbox}[rounded=true, shadow=true, sep=8pt, center]{frametitle}
+		\usebeamerfont{title}Analisi comparativa e sistematizzazione di cifrari post-quantum basati su codici casuali\par  % Titolo di prova
+	\end{beamercolorbox}
+	\vspace{0.3cm}
+	\begin{center}
+		\usebeamerfont{author}Andrea Bellani\par  % Autore di prova
+		\vspace{0.5cm}
+		\usebeamerfont{institute}Politecnico di Milano\par  % Affiliazione di prova
+		\vspace{0.1cm}
+		\usebeamerfont{email}\texttt{andrea1.bellani@mail.polimi.it}\par  % Email di prova
+		\vspace{0.5cm}
+		\usebeamerfont{date}\today\par  % Data attuale
+	\end{center}
+}
+%\setbeamertemplate{footline}{
+%	\begin{beamercolorbox}[wd=\paperwidth, ht=2ex, dp=1ex, right]{author in head/foot}
+%		\usebeamerfont{author in head/foot}\texttt{andrea1.bellani@mail.polimi.it}
+%	\end{beamercolorbox}
+%	\vskip0pt%
+%}
+
+\setbeamercolor{author in head/foot}{fg=black, bg=mydarkviolet}
+
+\begin{document}
+	
+	% Titolo della presentazione
+	\title{Progetto di Ingegneria Informatica}
+	\author{Andrea Bellani}
+	\date{\today}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	% Sezioni per attivare i pallini di progresso
+	\section{Informazioni generali}
+		\begin{frame}{Informazioni generali}
+			\begin{block}{Informazioni studente}
+				\begin{itemize}
+					\item nome: Andrea Bellani (codice persona: 10733192, matricola: 956505)
+					\item corso di studi: Ingegneria Informatica (laurea di primo livello)
+				\end{itemize}
+			\end{block}
+			\begin{block}{Informazioni progetto}
+				\begin{itemize}
+					\item nome progetto: Analisi comparativa e sistematizzazione di cifrari post-quantum basati su codici casuali
+					\item docente responsabile: prof. Alessandro Barenghi
+					\item aree di competenza: algoritmi, crittografia
+				\end{itemize}
+			\end{block}
+		\end{frame}
+	\section{Introduzione}
+		\begin{frame}{Introduzione}
+			\begin{block}{Obbiettivi del progetto}
+				Il progetto ha lo scopo di offrire allo studente un'occasione per applicare le conoscenze acquisite durante il percorso di laurea triennale. Lo studente, partendo da una bibliografia di riferimento dovrà:
+				\begin{itemize}
+					\item riassumere i concetti preliminari (affrontati nel proprio percorso di studi) necessari ad affrontare l'analisi che andrà a redarre;
+					\item descrivere i crittosistemi di Alekhnovich e lo schema quasi-ciclico;
+					\item riportare (e se necessario ideare) dimostrazioni di sicurezza per i crittosistemi di Alekhnovich;
+					\item utilizzare un \emph{argomento per ibridi} per trasformare i crittosistemi di Alekhnovich nello schema quasi-ciclico;
+				\end{itemize}
+			\end{block}
+		\end{frame}
+		\begin{frame}{Introduzione (cont.)}
+			\begin{block}{}
+				\begin{itemize}
+					\item delineare un set di parametri per confrontare i cifrari analizzati (con particolare enfasi sull'efficienza computazionale e le prove formali di sicurezza).
+				\end{itemize}
+				Si valuta anche la capacità dello studente di ricercare, consultare e riportare ulteriori fonti bibliografiche (attendibili) se necessario.
+				
+				Lo studente redarrà l'analisi in Tex, seguendo le linee editoriali della letteratura scientifica del settore.
+			\end{block}
+		\end{frame}
+	\section{Conoscenze preliminari}
+		\begin{frame}{Conoscenze preliminari}
+			\begin{block}{Probabilità}
+				\emph{Distribuzione di probabilità uniforme}
+			\end{block}
+			\begin{block}{Strutture algebriche}
+				\emph{Gruppi}, \emph{Anelli}, \emph{Campi}, \emph{Ideali generati da polinomi}, \emph{Anelli quozienti generati da polinomi}
+			\end{block}
+			\begin{block}{Teoria dei codici lineari}
+				\emph{Codice duale}, \emph{Matrice generatrice}, \emph{Matrice di parità}, \emph{Sindrome}, \emph{Peso di un vettore}, \emph{Distanza di Hamming},\emph{Rotazione di un vettore}, \emph{Codici ciclici}
+			\end{block}
+			\begin{block}{Teoria della computazione}
+				\emph{La complessità computazionale}, \emph{La complessità asintotica}, \emph{Macchina di Turing}, \emph{Tesi di Church-Turing}, \emph{Problemi NP ed NP-Hard}
+			\end{block}
+		\end{frame}
+		\begin{frame}{Conoscenze preliminari (cont.)}
+			\begin{block}{Crittografia}
+				\emph{Crittografia asimmetrica}, \emph{Search decoding problem}, \emph{Decisional decoding problem}, \emph{Ipotesi di Fisher-Stern}, \emph{Argomento per ibridi}
+			\end{block}
+		\end{frame}
+	\section{La crittografia post-quantistica basata su codici}
+		\begin{frame}{La crittografia post-quantistica basata su codici}
+			\begin{block}{La crittografia post-quantistica}
+				La crittografia pre-quantistica è stata in larga misura basata su problemi matematici computazionalmente "difficili" (algoritmi di complessità non polinomiale), quali fattorizzazione (es. algoritmo RSA) o calcolo di logaritmi discreti (es. algoritmo Diffie-Hellman). Queste tecniche sono così divenute insicure nel momento in cui sono stati inventati algoritmi, per calcolatori quantistici, in grado performare in tempo polinomiale questi calcoli (si veda, ad esempio, l’algoritmo di Shor), almeno a livello teorico. I calcolatori quantistici di cui si dispone allo stato attuale non sono in grado di eseguire con successo questi algoritmi su casi di utilità pratica, ma nell'attesa che si realizzino calcolatori quantistici sufficientemente performanti, è necessario sviluppare crittosistemi in grado di resisterli, ma che siano anche abbastanza efficienti da avere un’utilità pratica.
+			\end{block}
+		\end{frame}
+		\begin{frame}{La crittografia post-quantistica basata su codici (cont.)}
+			\begin{block}{I crittosistemi considerati}
+				\begin{center}
+					\begin{chronology}[5]{1994}{2024}{60ex}[\textwidth]
+						\event{1994}{Algoritmo di Shor}
+						\event{1997}{Crittosistema di Ajtai-Dwork}
+						\event{2003}{Crittosistemi di Alekhnovich}
+						\event{2009}{Crittosistema di Regev}
+						\event{2018}{Schema quasi-ciclico}
+						\event[2018]{2024}{Raffinazione di HQC}
+					\end{chronology}
+				\end{center}
+			\end{block}
+		\end{frame}
+		\subsection{I crittosistemi di Ajtai-Dwork e di Regev}
+			\begin{frame}{La crittografia post-quantistica basata su codici (cont.)}
+				\begin{block}{I crittosistemi di Ajtai-Dwork e di Regev}
+					Benché la nostra analisi sia focalizzata sulla schematizzazione e il confronto tra i crittosistemi di Alekhnovich e lo schema quasi-ciclico, è doveroso menzionare i crittosistemi che hanno gettato le basi per questi ultimi. Di questi non abbiamo dunque dettagliato la struttura e le meccaniche, ci siamo limitati a:
+					\begin{itemize}
+						\item illustrare brevemente i principi su cui si basano;
+						\item discutere brevemente la loro utilità pratica;
+						\item evidenziare le analogie più evidenti coi crittosistemi di Alekhnovich.
+					\end{itemize} 
+				\end{block}
+			\end{frame}
+		\subsection{I crittosistemi di Alekhnovich}
+			\begin{frame}{La crittografia post-quantistica basata su codici (cont.)}
+				\begin{block}{I crittosistemi di Alekhnovich}
+					I crittosistemi di Alekhnovich sono il punto centrale della nostra analisi. Di questi abbiamo infatti abbiamo sia dettagliato la definizione e che i processi di criptazione e decrittazione (in pseudocodice).
+					
+					In più abbiamo fornito dimostrazioni formali di sicurezza contro:
+					\begin{itemize}
+						\item attacchi volti a decifrare il testo criptato senza l'ausilio della chiave privata;
+						\item attacchi volti a dedurre la chiave privata da quella pubblica.
+					\end{itemize}
+					In particolare, per quest'ultima tipologia di attacchi, abbiamo ideato delle dimostrazioni per assurdo ad hoc (sotto forma di \emph{riduzioni}), essendo la letteratura di riferimento manchevole di queste.
+				\end{block}
+			\end{frame}
+		\subsection{Lo schema quasi-ciclico}
+			\begin{frame}{La crittografia post-quantistica basata su codici (cont.)}
+				\begin{block}{Lo schema quasi-ciclico}
+					Illustrati i crittosistemi di Alekhnovich, abbiamo dettagliato struttura e processi dello schema quasi-ciclico (in maniera analoga a quanto fatto per i crittosistemi di Alekhnovich). Infine, abbiamo utilizzato un \emph{argomento per ibridi} per dimostrare come, sotto determinate assunzioni (o \emph{ipotesi}), il processo di criptazione del secondo crittosistema di Alekhnovich è analogo a quello dello schema quasi-ciclico.
+				\end{block}
+			\end{frame}
+	\section{Confronto tra i cifrari}
+		\subsection{I parametri scelti}
+			\begin{frame}{Confronto tra i cifrari}
+				\begin{block}{I parametri scelti}
+					Il corpus di parametri scelti per confrontare i crittosistemi in esame è costituito da:
+					\begin{itemize}
+						\item parametri legati alle dimensioni:
+							\begin{itemize}
+								\item dimensione delle chiavi: dimensioni di chiave pubblica e privata sul numero di bit messaggio;
+								\item dimensione dei messaggi: rapporto tra numero di simboli di controllo sul numero di simboli di informazione;
+							\end{itemize}
+						\item parametri legati alle complessità temporali:
+							\begin{itemize}
+								\item complessità del processo di codifica;
+								\item complessità del processo di decodifica;
+							\end{itemize}
+					\end{itemize}
+				\end{block}
+			\end{frame}
+			\begin{frame}{Confronto tra i cifrari (cont.)}
+				\begin{block}{}
+					\begin{itemize}
+						\item parametri legati alla sicurezza:
+							\begin{itemize}
+								\item teoremi a cui è ridotta la loro sicurezza;
+							\end{itemize}
+						\item parametri legati alla correttezza:
+							\begin{itemize}
+								\item probabilità di decrittare correttamente il contenuto di un messaggio.
+							\end{itemize}
+					\end{itemize}
+					La scelta di questi parametri è stata fatta tenendo conto di quali sono i parametri che per primi vengono utilizzati per valutare l’affidabilità e l’utilità pratica di un crittosistema. Si noti come i parametri scelti non sono definiti ad hoc per i crittosistemi in analisi e potrebbero essere applicati a qualunque tipologia di crittosistemi.
+				\end{block}
+			\end{frame}
+		\subsection{I risultati ottenuti}
+			\begin{frame}{Confronto tra i cifrari (cont.)}
+				\begin{block}{I risultati ottenuti}
+					Confrontare i crittosistemi secondo i parametri scelti ci ha permesso di:
+					\begin{itemize}
+						\item quantificare le complessità dei processi di codifica e decodifica e le dimensioni di chiavi e messaggi ci ha permesso di valutare l'effettivo miglioramento (asintotico) delle prestazioni. In particolare, lo schema quasi-ciclico è l'unico ad avere processi complessità al più quadratica mantenendo lineare la dimensione delle chiavi e dei messaggi;
+						\item verificare che entrambi i crittosistemi basano la propria sicurezza su problemi di difficoltà non strettamente diversa tra di loro;
+						\item verificare se la probabilità di decrittazione corretta è ragionevolmente alta.
+					\end{itemize}
+				\end{block}
+			\end{frame}
+			\begin{frame}{Confronto tra i cifrari (cont.)}
+				\begin{block}{}
+					Con questo confronto abbiamo evidenziato come crittosistemi di Alekhnovich, benché forniscano dimostrazioni di sicurezza e correttezza "formale" analoghe allo schema quasi ciclico, essi offrono prestazioni significativamente inferiori a quelle dello schema quasi-ciclico, rendendoli così inutilizzabili in un caso di utilità pratica.
+				\end{block}
+			\end{frame}
+	\section{Le conclusioni ottenute}
+		\begin{frame}{Le conclusioni ottenute}
+			\begin{block}{}
+				\begin{itemize}
+					\item abbiamo organizzato le informazioni utili allo studio dei crittosistemi (estrapolandole sia dai corsi seguiti nella laurea triennale di Ingegneria Informatica che dalla lettura scientifica di interesse);
+					\item si sono individuate analogie tra crittosistemi basati su teorie differenti (i crittosistemi basati su reticoli coi crittosistemi basati su codici);
+					\item abbiamo applicato un argomento per ibridi per trasformare i crittosistemi di Alekhnovich nello schema quasi-ciclico;
+					\item abbiamo, ove necessario, ideato dimostrazioni di sicurezza dei crittosistemi "per riduzione";
+					\item si è stabilito un set di parametri per il confronto di cifrari che ci ha permesso di evidenziarne i punti di forza e debolezza di questi ultimi.
+				\end{itemize}
+			\end{block}
+		\end{frame}
+		\begin{frame}{Le conclusioni ottenute (cont.)}
+			\begin{block}{}
+				Inoltre, l'argomento per ibridi utilizzato ci ha permesso di evidenziare come la differenza tra le meccaniche utilizzate dai crittosistemi di Alekhnovich e quelle utilizzate dallo schema quasi-ciclico non sia così significativa. Ciononostante, quest'ultimo offre prestazioni sufficientemente buone da poter essere la base per un'effettiva implementazione pratica (\emph{HQC: Hamming Quasi-Cyclic}).
+			\end{block}
+		\end{frame}
+	\section{Bibliografia}
+		\begin{frame}{Bibliografia}
+			\begin{block}{Panoramica}
+				\begin{itemize}
+					\item \emph{Appunti corsi}: appunti presi dallo studente nei corsi di interesse per l'analisi;
+					\item \emph{Altro materiale didattico} : materiale didattico (esterno ai corsi seguiti) per integrare le conoscenze preliminari non coperte dai corsi sostenuti;
+					\item \emph{Articoli di riferimento} : articoli forniti dal docente per affrontare l'analisi;
+					\item \emph{Articoli di approfondimento} : articoli trovati dallo studente per approfondire e/o chiarificare gli argomenti trattati/accennati negli articoli di riferimento;
+					\item \emph{Articoli riepilogativi} : articoli utili ad avere una visione di insieme più chiara e uniforme.
+				\end{itemize}
+			\end{block}
+		\end{frame}
+		\begin{frame}{Bibliografia (cont.)}
+			\begin{block}{Appunti corsi}
+				\begin{itemize}
+					\item A. Bellani - Algoritmi e principi dell'informatica (2022)
+					\item A. Bellani - Geometria e algebra lineare (2021)
+					\item A. Bellani - Logica e algebra (2022)
+					\item A. Bellani - Probabilità e statistica per l'informatica (2023)
+				\end{itemize}
+			\end{block}
+			\begin{block}{Altro materiale didattico}
+				\begin{itemize}
+					\item J.T. Gill - Algebraic Error Correcting Codes (lectures notes) (2015)
+					\item M. Francischello, O. Papini - Teoria dei Codici e Crittografia (2012)
+					\item M. Sudan, V. Guruswami, A. Rudra - Essential Coding Theory (2023)
+					\item M. Rosulek - The Joy of Cryptography (2021)
+				\end{itemize}
+			\end{block}
+		\end{frame}
+		\begin{frame}{Bibliografia (cont.)}
+			\begin{block}{Articoli di riferimento sui crittosistemi di Alekhnovich}
+				\begin{itemize}
+					\item M. Alekhnovich - More on average case vs approximation complexity (2003)
+					\item G. Zémor - Notes on Alekhnovich’s cryptosystems (2016)
+				\end{itemize}
+			\end{block}
+			\begin{block}{Articoli di riferimento sullo schema quasi-ciclico}
+				\begin{itemize}
+					\item HQC team - HQC: Hamming Quasi-Cyclic (2021)
+				\end{itemize}
+			\end{block}
+		\end{frame}
+		\begin{frame}{Bibliografia (cont.)}
+			\begin{block}{Articoli di approfondimento}
+				\begin{itemize}
+					\item M. Bombar, A. Couvreur, T. Debris-Alazard - On Codes and Learning With Errors Over
+					Function Fields (2022)
+					\item M. Bombar, A. Couvreur, T. Debris-Alazard - Pseudorandomness of Decoding, Revisited:
+					Adapting OHCP to Code-Based Cryptography (2023)
+					\item C. Dwork, M. Ajtai - A Public-Key Cryptosystem with Worst-Case/Average-Case 
+					Equivalence (1997)
+					\item O. Regev - On Lattices, Learning with Errors, Random Linear Codes, and Cryptography (2009)
+					\item C. Aguilar-Melchor, O. Blazy, J. Deneuville, P. Gaborit, G. Zémor - Efficient Encryption
+					From Random Quasi-Cyclic Codes (2018)
+				\end{itemize}
+			\end{block}
+		\end{frame}
+		\begin{frame}{Bibliografia (cont.)}
+			\begin{block}{Articoli riepilogativi}
+				\begin{itemize}
+					\item C. Peikert - A Decade of Lattice Cryptography (2016)
+					\item V. Weger, N. Gassner, J. Rosenthal - A Survey on Code-based Cryptography (2024)
+					\item V. Lyubashevsky - Basic Lattice Cryptography (2020)
+				\end{itemize}
+			\end{block}
+		\end{frame}
+\end{document}
