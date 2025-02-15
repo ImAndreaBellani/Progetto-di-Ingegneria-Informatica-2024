@@ -1,7 +1,7 @@
 # Progetto-di-Ingegneria-Informatica-2024
 Progetto realizzato per il corso "PROGETTO DI INGEGNERIA INFORMATICA (5 CFU)" del Politecnico di Milano nell'anno accademico 2023/2024. Voto: 30 e lode.
 
-## informazioni progetto:
+## Informazioni progetto:
   <table>
     <tr>
       <th>nome progetto</th>
@@ -17,7 +17,7 @@ Progetto realizzato per il corso "PROGETTO DI INGEGNERIA INFORMATICA (5 CFU)" de
     </tr>
   </table>
 
-### struttura:
+### Struttura:
 
 - documentazione: contiene la documentazione del progetto;
 - presentazione: contiene una presentazione da utilizzare per un'eventuale esposizione del progetto;
