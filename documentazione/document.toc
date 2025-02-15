@@ -1,0 +1,13 @@
+\contentsline {chapter}{\numberline {0}Informazioni generali}{2}{chapter.0}%
+\contentsline {chapter}{\numberline {1}Specifiche}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Obbiettivo}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Specifica}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Analisi della specifica}{3}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Realizzazione}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Riordino dei concetti preliminari}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Analisi dei crittosistemi}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Formulazione delle prove formali di sicurezza}{6}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Confronto tra i cifrari}{6}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Conclusioni ottenute}{7}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Bibliografia}{8}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Report di svolgimento}{10}{chapter.5}%

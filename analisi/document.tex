@@ -1,0 +1,857 @@
+\documentclass[12pt, a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{fonti.bib}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{algpseudocode}
+%\usepackage{algorithm}
+\usepackage{bbold}
+\usepackage{eufrak}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage[linesnumbered, ruled]{algorithm2e}
+\usepackage{hyperref}
+\hypersetup{
+	pdftitle={Analisi comparativa e sistematizzazione di cifrari post-quantum basati su codici casuali},
+	pdfauthor={Andrea Bellani},
+	pdfsubject={Ingegneria Informatica},
+	pdfkeywords={Crittografia post-quantistica, Crittografia basata su codici, Crittosistemi di Alekhnovich, Hamming quasi-cyclic, Progetto di Ingegneria Informatica, Politecnico di Milano},
+	pdfcreator={LaTeX},
+}
+
+\input{algorithms.tex}
+
+\SetAlCapSkip{1em}
+
+\SetKwInput{KwInput}{Input}
+\SetKwInput{KwOutput}{Output}
+
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\begin{document}
+	\title{Analisi comparativa e sistematizzazione di cifrari post-quantum basati su codici casuali}
+	\author{Andrea Bellani}
+	\date{\today}
+	
+	\maketitle
+	
+	\begin{abstract}
+		L'obbiettivo di questo lavoro è l'analisi e il confronto di alcuni crittosistemi post-quantum: i crittosistemi di Alekhnovich e lo schema quasi-ciclico. In particolare, a partire dai crittosistemi basati su reticoli illustreremo i principi da cui Alekhnovich ha tratto ispirazione per la realizzazione dei suoi crittosistemi e come da questi ultimi è possibile ottenere lo schema quasi-ciclico, che getta a sua volta i dettami per il crittosistema $\emph{HQC}$, attualmente in lizza per la standardizzazione da parte del National Institute of Standards and Technology (NIST).
+		
+		Il documento organizza inoltre i concetti preliminari di matematica e informatica teorica (affrontati nei corsi della laurea triennale di Ingegneria Informatica presso il Politecnico di Milano) necessari per approcciare i fondamenti della teoria dei codici e i crittosistemi illustrati.
+	\end{abstract}
+	\tableofcontents
+	
+	\chapter{Concetti preliminari}
+		\section{Probabilità \cite{1}}
+			\begin{definition}[Distribuzione di probabilità \emph{uniforme}]
+				Sia:
+					\begin{itemize}
+						\item $\mathbf{S}$, un generico insieme di valori.
+					\end{itemize}
+				Nella nostra trattazione, diremo che $\mathcal{S}\in \mathbf{S}$ è \emph{estratto casualmente} da $\mathbf{S}$ se la probabilità che $\mathcal{S}$ venga estratto tra tutti gli elementi di $\mathbf{S}$:
+					\begin{itemize}
+						\item è pari a $\frac{1}{|\mathbf{S}|}$;
+						\item è uguale $\forall \mathcal{S}\in \mathbf{S}$.
+					\end{itemize}
+			\end{definition}
+		\section{Strutture algebriche \cite{2} \cite{3}}
+			\begin{definition}[Struttura algebrica]
+				Sia:
+				\begin{itemize}
+					\item $\mathbf{A}$, un generico insieme;
+					\item $\mathbf{\Omega}$, un generico insieme di \emph{leggi di combinazione interne} su $\mathbf{A}$ (generiche funzioni $\mathbf{A}^k\rightarrow \mathbf{A}$).
+				\end{itemize}
+				\begin{center}
+					La coppia $(\mathbf{A},\mathbf{\Omega})$ è detta \emph{struttura algebrica}.
+				\end{center}
+			\end{definition}
+			\subsection{Strutture algebriche notevoli}
+				\begin{definition}[Gruppo]
+					Sia:
+						\begin{itemize}
+							\item $\mathbf{S}$, un generico insieme di elementi;
+							\item $\cdot$, una funzione $\mathbf{S}\times\mathbf{S}\rightarrow \mathbf{S}$ per cui valgono le proprietà di:
+								\begin{itemize}
+									\item \emph{identità} : $\exists\mathbbm{1}\in \mathbf{S},\forall\ a\in \mathbf{S},a\cdot\mathbbm{1}=\mathbbm{1}\cdot a=a$
+									\item \emph{chiusura} : $a,b\in \mathbf{S}\Rightarrow\ a\cdot b\in \mathbf{S}$
+									\item \emph{associatività} : $\forall a,b,c\in \mathbf{S},a\cdot \left(b\cdot c\right)=\left(a\cdot b\right)\cdot c$
+									\item \emph{inverso} : $\forall a\in \mathbf{S},\exists a^{-1},a\cdot a^{-1}=a^{-1}\cdot a=\mathbbm{1}$
+								\end{itemize}
+						\end{itemize}
+					\begin{center}
+						$\left(\mathbf{S},\cdot\right)$ è detto \emph{gruppo}.
+					\end{center}
+					Osservazione:
+						\begin{itemize}
+							\item possiamo anche definire delle "varianti" dei gruppi, ad esempio:
+							\begin{itemize}
+								\item un \emph{gruppo commutativo} è un gruppo in cui $\cdot$ rispetta anche la proprietà commutativa ($\forall a,b\in \mathbf{S},a\cdot b=b\cdot a$);
+								\item in un \emph{monoide}, $\cdot$ non rispetta la proprietà di inverso;
+								\item in un \emph{semigruppo}, $\cdot$ né rispetta la proprietà di inverso né ammette quella di identità.
+							\end{itemize}
+						\end{itemize}
+				\end{definition}
+				\begin{definition}[Anello]
+					Sia:
+					\begin{itemize}
+						\item $\mathbf{A}$, un generico insieme di elementi;
+						\item $(\mathbf{A},+)$, un gruppo commutativo su $\mathbf{A}$;
+						\item $(\mathbf{A},\cdot)$, un semigruppo su $\mathbf{A}$;  
+					\end{itemize}
+					\begin{center}
+						se vale anche la proprietà distributiva (sia "destra" che "sinistra") di $\cdot$ su + allora $(\mathbf{A}, (+,\cdot))$ è detto \emph{anello}.
+					\end{center}
+					Osservazione:
+					\begin{itemize}
+						\item si definisce \emph{ideale} di un anello $(\mathbf{A}, (+,\cdot))$ un sottoinsieme $\mathbf{I}$ di $\mathbf{A}$ tale per cui:
+							\begin{itemize}
+								\item $\forall i\in \mathbf{I},\forall a\in \mathbf{A}, i\cdot a \in \mathbf{I} \wedge a\cdot i\in \mathbf{I}$;
+								\item $\forall i\in \mathbf{I},\forall a\in \mathbf{A}, i+a \in \mathbf{I} \wedge a+i\in \mathbf{I}$;
+							\end{itemize}
+					\end{itemize}
+				\begin{definition}[Campo]
+					Sia:
+					\begin{itemize}
+						\item $(\mathbf{A}, (+,\cdot))$, un generico anello;
+						\item $(\mathbf{A}\setminus \{\mathbb{0}\}, (+,\cdot))$, un gruppo commutativo definito sulle stesse operazioni dell'anello considerato e sullo stesso insieme escluso l'elemento neutro di +;
+					\end{itemize}
+					\begin{center}
+						$(\mathbf{A}, (+,\cdot))$ insieme a $(\mathbf{A\setminus \{\mathbb{0}\}}, (+,\cdot))$ è detto \emph{campo}.
+					\end{center}
+					Osservazione:
+					\begin{itemize}
+						\item un \emph{campo finito} è un campo in cui $\mathbf{A}$ è un insieme finito. Tipicamente si indicano con la notazione $\mathbbm{F}_{\#\left(\mathbf{A}\right)}$.
+					\end{itemize}
+				\end{definition}
+					\subsubsection{Definizioni su anelli di polinomi}
+						\begin{definition}[Ideale generato da un polinomio]
+							Sia:
+							\begin{itemize}
+								\item $(\mathbf{A}, (+,\cdot))$, un generico anello di polinomi;
+								\item $p$, un polinomio di $\mathbf{A}$;
+							\end{itemize}
+							\begin{center}
+								l'ideale generato da $p$ rispetto a $(\mathbf{A}, (+,\cdot))$ coincide con l'insieme di tutti i polinomi di $\mathbf{A}$ multipli di $p$ (in simboli: $(p)$).
+							\end{center}
+							Osservazione:
+							\begin{itemize}
+								\item dato un vettore $\textbf{a}\in\mathbbm{F}^n_q$, rappresentiamo con la notazione $a(x)$ il polinomio $\sum_{i=0}^{n-1}(a_ix^i)$.
+							\end{itemize}
+						\end{definition}
+						\begin{definition}[Anello quoziente su un ideale generato da un polinomio]
+							Sia:
+							\begin{itemize}
+								\item $\mathbbm{F}_q[x]$, l'anello dei polinomi aventi coefficienti in $\mathbbm{F}_q$;
+								\item $(x^n -1)$, l'ideale generato da $x^n -1$ in $\mathbbm{F}_q[x]$;
+							\end{itemize}
+							L'\emph{anello quoziente} $\frac{\mathbbm{F}_q[x]}{(x^n -1)}$ è l'insieme delle classi di equivalenza dei polinomi di $\mathbbm{F}_q[x]$ secondo la relazione di equivalenza: $f(x),g(x)\in\mathbbm{F}_q[x]$ sono equivalenti se e solo se $f(x)-g(x)$ è multiplo di $x^n -1$.
+						\end{definition}
+				\end{definition}
+				
+		\section{Definizioni di teoria dei codici \emph{lineari} \cite{4} \cite{5} \cite{6}}
+			\begin{definition}[Codice lineare]
+				Sia:
+					\begin{itemize}
+						\item $\mathbbm{K}^n$, un generico sottospazio di dimensione $n$ (per noi, generalmente, $\mathbbm{F}^n_2$);
+					\end{itemize}
+				\begin{center}
+					Un \emph{codice lineare} di dimensione $m$ è un sottospazio vettoriale di dimensione $m$ di $\mathbbm{K}^n$.
+				\end{center}
+				Osservazioni:
+				\begin{itemize}
+					\item spesso i codici lineari sono indicati con la notazione "$[n,m]$";
+					\item la matrice le cui righe formano una base del codice lineare è detta \emph{matrice generatrice} del codice lineare (dunque è una matrice $\mathbbm{K}^{m\times n}$).
+				\end{itemize}
+			\end{definition}
+			\begin{definition}[Codice duale (o ortogonale)]
+				Sia:
+					\begin{itemize}
+						\item $\mathfrak{C}$, un generico codice lineare di $\mathbbm{K}^n$;
+					\end{itemize}
+				\begin{center}
+					si definisce \emph{codice duale} di $\mathfrak{C}$ il codice $\mathfrak{C}^\perp := \{\textbf{x}\in\mathbbm{K}^n|\forall \textbf{c}\in\mathfrak{C},\langle \textbf{x},\textbf{c} \rangle=0\}$.
+				\end{center}
+				Osservazioni:
+					\begin{itemize}
+						\item dalle proprietà degli spazi vettoriali:
+						\begin{itemize}
+							\item $dim(\mathfrak{C})+dim(\mathfrak{C}^\perp)=n$
+						\end{itemize}
+						\item $(\mathfrak{C}^\perp)^\perp=\mathfrak{C}$
+					\end{itemize}
+			\end{definition}
+			\begin{definition}[Matrice di parità]
+				Sia:
+					\begin{itemize}
+						\item $\mathfrak{C}$, un generico codice lineare di $\mathbbm{K}^n$;
+					\end{itemize}
+				\begin{center}
+					si definisce \emph{matrice di parità} di $\mathfrak{C}$ la matrice generatrice di $\mathfrak{C}^\perp$.
+				\end{center}
+				Osservazioni:
+					\begin{itemize}
+						\item per le proprietà di $^\bot$, la matrice di parità $\mathfrak{C}^\perp$ è la matrice generatrice di $\mathfrak{C}$;
+						\item la matrice di parità risulta molto utile nelle applicazioni della teoria dei codici in quanto si può dimostrare che un elemento appartiene a $\mathfrak{C}$ se e solo se (dunque potremmo usare questo lemma anche come definizione di matrice di parità) il prodotto riga per colonna con la matrice di parità da l’elemento nullo $\mathbbm{K}^n$.
+					\end{itemize}
+			\end{definition}
+			\begin{definition}[Sindrome]
+				Sia:
+					\begin{itemize}
+						\item $\mathfrak{C}$, un generico codice lineare con matrice di parità $\mathbf{H}$ di $\mathbbm{K}^n$;
+					\end{itemize}	
+				\begin{center}
+					si definisce \emph{sindrome} di un generico elemento $\textbf{u}\in\mathbbm{K}^n$ il risultato del prodotto riga per colonna tra $\mathbf{H}$ e $\textbf{u}$.
+				\end{center}
+				Osservazioni:
+					\begin{itemize}
+						\item per quanto detto in precedenza, la sindrome di un elemento è l’elemento nullo se e solo se quell’elemento appartiene al codice considerato;
+						\item si dimostra piuttosto velocemente che due elementi hanno uguale sindrome se e solo se la differenza tra i due appartiene al codice considerato.
+					\end{itemize}
+			\end{definition}
+			\begin{definition}[Peso di un vettore]
+				Si definisce \emph{peso} di un vettore il numero di componenti non nulle del vettore.
+			\end{definition}
+			\begin{definition}[Distanza di Hamming]
+				Siano:
+					\begin{itemize}
+						\item $\textbf{x}$ e $\textbf{y}$, due generici vettori di ugual dimensione;
+					\end{itemize}
+				\begin{center}
+					si definisce \emph{distanza di Hamming} (in simboli: $d_H(\textbf{x},\textbf{y})$) tra i vettori $\textbf{x}$ e $\textbf{y}$:
+					$\sum_{i=1}^{n} d_H(x_i,y_i),d_H(a,b):=
+							\begin{cases}
+								1, a\neq b \\
+								0, a=b
+							\end{cases}
+						$
+				\end{center}
+			\end{definition}
+			\begin{definition}[Rotazione di un vettore]
+				Sia:
+				\begin{itemize}
+					\item $\textbf{a}:=(a_0,\dots,a_{n-1})$, un generico vettore di dimensione $n$;
+				\end{itemize}
+				l'operazione di rotazione (destra) di un vettore sul generico vettore $\textbf{a}$ è definita come (in modo analogo è possibile definire la rotazione sinistra):
+				\begin{center}
+					 $rot(\textbf{a}):=(a_{n-1},a_0,\dots,a_{n-2})$
+				\end{center}
+			\end{definition}
+			\begin{definition}[Codice ciclico]
+				Sia:
+					\begin{itemize}
+						\item $n$, un generico naturale (\emph{lunghezza} del codice);
+						\item $\mathbbm{F}_q^n$, lo spazio vettoriale di dimensione $n$ sul generico campo finito $\mathbbm{F}_q$;
+						\item $l$, un generico naturale non nullo (\emph{ordine} del codice);
+					\end{itemize}
+				Un codice ciclico $\mathfrak{C}$ di ordine $l$ è un codice:
+				\begin{itemize}
+					\item[i.] lineare;
+					\item[ii.] sottoinsieme di $\mathbbm{F}_q^n$;
+					\item[iii.] tale per cui se $\textbf{c}\in\mathfrak{C}$ allora anche $\textbf{c}$ ruotato $l$-volte appartiene a $\mathfrak{C}$.
+				\end{itemize}
+				Osservazione:
+					\begin{itemize}
+						\item è possibile generalizzare il concetto di codice ciclico ai \emph{codici quasi-ciclici}, i quali rilassano la proprietà iii vincolando le rotazioni solo a sotto-vettori contigui dei vettori del codice.
+					\end{itemize}
+			\end{definition}
+		\section{Definizioni di teoria della computazione \cite{11}}
+			\subsection{La complessità computazionale e la Macchina di Turing}
+				Per i nostri scopi, la misurazione di complessità di un algoritmo tiene conto delle seguenti semplificazioni:
+				\begin{itemize}
+					\item considera solo il tempo impiegato e le risorse impiegate dalle esecuzioni (si trascurano \emph{costi collaterali} quali tempi di debugging, risorse ambientali impiegate ecc. );
+					\item si astrae dalla tipologia di solutore dell'algoritmo (si veda il paragrafo sulla Macchina di Turing);
+					\item non è misurata su "singoli input" ma in funzione della loro taglia (ovvero si assume che l'algoritmo impieghi per input di uguale taglia lo stesso quantitativo di tempo e di spazio);
+					\item tra tutte le complessità sugli input di una tale taglia, viene scelta la più grande (\emph{caso pessimo});
+					\item si considerano di uguale complessità ordini di grandezza il cui limite del rapporto a $+\infty$ è costante (ad esempio, $3n^2$ e $4n^2$, oppure logaritmi aventi basi differenti).
+				\end{itemize}
+				Queste semplificazioni ci portano ad utilizzare le seguenti notazioni per specificare la complessità (ci interessa solo quella temporale) di un algoritmo:
+				\begin{itemize}
+					\item \emph{$O$-grande} : $f(n)$ è $O(g(n))$ se esiste un fattore $c\in\mathbbm{R}^+$ tale per cui $f(n)\le c\cdot g(n)$ per $n$ sufficientemente grande;
+					\item \emph{$\Omega$-grande} : $f(n)$ è $\Omega(g(n))$ se esiste un fattore $c\in\mathbbm{R}^+$ tale per cui $f(n)\ge c\cdot g(n)$ per $n$ sufficientemente grande;
+					\item \emph{$\Theta$-grande} : $f(n)$ è $\Theta(g(n))$ se esistono due fattori $c_1,c_2\in\mathbbm{R}^+$ tali per cui $c_1\cdot g(n)\le f(n)\le c_2\cdot g(n)$ per $n$ sufficientemente grande.
+				\end{itemize}
+				Ad essere più precisi, queste notazioni non identificano funzioni ma classi di funzioni, dunque sarebbe più corretto dire "$f(n)$ appartiene a $O(g(n))$", ad esempio.
+				\begin{definition}[Macchina di Turing (definizione "di alto livello")]
+					Si definisce \emph{Macchina di Turing} ("a singolo nastro") un formalismo di calcolo definito da:
+					\begin{itemize}
+						\item un nastro di input \emph{seekable} (ovvero su cui è possibile scorrere avanti e indietro a piacimento);
+						\item un nastro di output seekable;
+						\item un nastro di memorizzazione seekable;
+						\item un organo di controllo per leggere e scrivere sui nastri.
+					\end{itemize}
+				\end{definition}
+				In buona sostanza, un algoritmo per macchina di Turing indica all'organo di controllo quali celle leggere dai nastri e su quali scrivere.
+				\begin{definition}[Tesi di Church-Turing]
+					Non esiste un problema \emph{effettivamente calcolabile} (ovvero risolvibile da un qualche formalismo di calcolo) che non sia risolvibile da una macchina di Turing.
+				\end{definition}
+				Benché non sia mai stata dimostrata, allo stato attuale non è mai stato trovato un problema che contraddica questa tesi. La macchina di Turing rappresenta dunque, allo stato attuale, il più potente (dove per \emph{potenza} intendiamo la capacità di risolvere problemi effettivamente calcolabili) formalismo di calcolo mai definito. Tutti i calcolatori, dunque, si può dimostrare, hanno una potenza di calcolo uguale o inferiore a quella della macchina di Turing. Per questo motivo, quando parleremo di "utilizzatore" oppure "solutore" di un problema, faremo sempre implicitamente riferimento a una macchina di Turing oppure a uno dei numerosi formalismi di calcolo ad essa equivalenti (detti, formalismi \emph{Turing-completi}). 
+				
+				Osserviamo inoltre che la macchina di Turing (o un suo equivalente), è il formalismo che più ha senso identificare come utilizzatore nell'analisi di complessità degli algoritmi (o, che dir si voglia, di "problemi", intesi come algoritmi in grado di risolvere quei problemi). La complessità di un algoritmo, in generale, dipende dal suo utilizzatore e se, per una qualche ragione, il formalismo più efficiente per l'esecuzione di un algoritmo non fosse una macchina di Turing, la macchina di Turing sarebbe sicuramente in grado di emularne l'esecuzione.
+			\subsection{I problemi di classe NP e NP-Hard}
+				\begin{definition}[Classe NP]
+					Un problema decisionale (problemi la cui risposta è "sì" oppure "no") rientra nella classe \emph{NP} (\emph{Nondeterministic Polynomial time}) se una macchina di Turing deterministica è in grado di verificare in tempo, al più, polinomiale che un generico input del problema darà risposta "sì" (i problemi di classe \emph{P}, invece, sono quei problemi tali per cui indipendentemente dalla risposta è possibile verificare in tempo polinomiale se un generico input darà risposta "sì" o "no").
+					
+					Si noti che non per tutti i problemi verificare se un generico input dà una certa risposta equivale a calcolare quella risposta (calcolare un risultato può essere strettamente più complesso di verificarne la correttezza).
+					
+					Uno dei problemi irrisolti dell'informatica teorica è l'equivalenza tra le classi P ed NP, ovvero non è stato ancora trovato un problema appartenente a P ma non a NP (esistono tuttavia problemi NP che non si sa se siano anche P, trovarne uno non significa dunque che NP$\neq$P).
+				\end{definition}
+				\begin{definition}[Classe NP-Hard]
+					Un problema decisionale rientra nella classe \emph{NP-Hard} se la sua risoluzione in tempo polinomiale (sia nei casi in cui la risposta è "sì" che nei casi in cui è "no") dimostra che NP=P.
+					
+					Esistono problemi NP-Hard che sono anche NP (detti \emph{NP-Completi}), altri no. In ogni caso, dal momento che NP=P è un problema ancora aperto, allo stato attuale non è stato trovato un problema NP-Hard risolvibile in tempo polinomiale.
+				\end{definition}
+		\section{I problemi di decodifica \cite{7} \cite{8} \cite{9} \cite{10}}
+			Sapere che un problema di decisione è NP-Hard può essere di grande interesse per la creazione di crittosistemi infatti, se si è in grado di ridurre la decifrazione (senza informazioni "private") di un crittosistema alla risoluzione di un problema NP-Hard, considerando il fatto che non sono noti problemi NP-Hard risolvibili in tempo polinomiale, si potrebbe ragionevolmente ritenere il crittosistema robusto agli attacchi dei moderni calcolatori (le cui potenzialità di calcolo rendono praticamente intrattabili i problemi di complessità superiore alla polinomiale). Tuttavia, alcuni problemi su cui si basa la crittografia "tradizionale" (come vedremo) sono risolvibili in tempo polinomiale da calcolatori quantistici, compromettendo così i sistemi che si basano su di loro (ritenuti ragionevolmente "sicuri" prima dell'avvento dei calcolatori quantistici). Lo scopo della crittografia post-quantistica è, in sostanza, quello di realizzare crittosistemi impenetrabili ad algoritmi per calcolatori quantistici e un modo, allo stato attuale, ragionevolmente sicuro per raggiungere questo scopo, è la riduzione ad alcuni problemi NP-Hard.
+			\begin{definition}[Search decoding problem]
+				Sia:
+				\begin{itemize}
+					\item $k,n$ tali che $\exists R_1,R_2,0<R_1\leq\frac{k}{n}\leq R_1<1$;
+					\item $\mathbf{G}\in\mathbbm{K}^{k\times n}$, una generica matrice di rango massimo;
+					\item $\textbf{e}\in\mathbbm{K}^n$, un generico vettore di peso assegnato $t$;
+					\item $\mathfrak{C}$, il codice lineare la cui matrice generatrice è $\mathbf{G}$;
+				\end{itemize}
+				il \emph{search decoding problem} consiste nel trovare un algoritmo che ricevuto $\textbf{m}\mathbf{G}+\textbf{e}$ restituisca $\textbf{m}$.
+			\end{definition}
+			\begin{definition}[Decisional decoding problem]
+				Sia:
+				\begin{itemize}
+					\item $k,n$ tali che $\exists R_1,R_2,0<R_1\leq\frac{k}{n}\leq R_1<1$;
+					\item $\mathbf{G}\in\mathbbm{K}^{k\times n}$, una generica matrice di rango massimo;
+					\item $\textbf{e}\in\mathbbm{K}^n$, un generico vettore di peso assegnato $t$;
+					\item $\mathfrak{C}$, il codice lineare la cui matrice generatrice è $\mathbf{G}$;
+				\end{itemize}
+				il \emph{decisional decoding problem} consiste nel trovare un algoritmo che data $\mathbf{G}$ sia in grado di distinguere un generico vettore da un vettore $c+e$, dove $c\in\mathfrak{C}$.
+			\end{definition}
+			Osservazioni:
+			\begin{itemize}
+				\item viene chiamata \emph{ipotesi sul decisional decoding problem} l’ipotesi sull’inesistenza di una soluzione di complessità polinomiale a questo problema;
+				\item si indica con \emph{syndrome decoding problem} il decisional decoding problem enunciato attraverso la matrice di parità e non attraverso la matrice generatrice e si dimostra che i due enunciati sono equivalenti.
+			\end{itemize}
+			\begin{definition}[Ipotesi di Fisher-Stern \cite{7}] 
+				L'\emph{ipotesi di Fisher-Stern} afferma che il search decoding problem e il decisional decoding problem hanno la stessa complessità computazionale.
+			\end{definition}
+		\section{Definizioni di crittografia}
+			\subsection{Gli argomenti per ibridi \cite{19}}
+				Immaginiamo un cifrario che cripta ciascuna parola in ingresso convertendola in una parola casuale, non potrebbe esistere un cifrario più sicuro: se la parola viene estratta casualmente, non vi è alcuna relazione tra quest'ultima e la parola iniziale, non vi è dunque modo di invertire il processo di criptazione. Chiaramente, un cifrario di questo tipo non può avere alcuna utilità pratica, in quanto non prevede un processo di decrittazione diverso dall'estrazione casuale. Chiamiamo questo cifrario, \emph{cifrario ideale}.
+				
+				Un \emph{argomento per ibridi} da un cifrario a un altro è una successione di conversioni che, sotto le ipotesi di sicurezza considerate, dimostra l'equivalenza tra i due. Ad esempio, se un crittosistema cripta una parola $x$ come $x+e$, dove $e$ è estratto casualmente con determinate proprietà, nell'ipotesi che $x+e$ sia indistinguibile da $e$ a meno di non possedere $e$, si può assumere che il cifrario considerato sia identico al cifrario ideale. In questo caso, l'unica conversione è il passaggio da $x+e$ a un vettore estratto casualmente.
+	\chapter{Considerazioni preliminari sugli algoritmi presentati}
+		Nei capitoli seguenti verranno illustrate, tra le altre cose, le procedure (in pseudocodice) di criptazione e decriptazione dei cifrari analizzati. Per implementare queste procedure è necessario fare uso di passaggi algebrici quali prodotti riga per colonna, prodotti scalari ecc. . Dal momento che confronteremo le complessità di queste procedure, è doveroso specificare a quali complessità facciamo riferimento per le varie operazioni algebriche: 
+	
+			\begin{table}[H]
+				\centering
+				\begin{tabular}[t]{cc}
+					\hline
+					&Complessità temporale \\
+					\hline
+					$G\in\mathbbm{S}^{n\times m},H\in\mathbbm{S}^{m\times k}, GM$ & $O(n\times m\times k)$\\
+					$v,w\in\mathbbm{S}^{1\times n},\langle v,w\rangle$ &$O(n)$\\
+					$G\in\mathbbm{S}^{n\times m},G^T$ &$\Theta(n\times m)$\\
+					$G\in\mathbbm{S}^{n\times n},G^{-1}$&$O(n\times n\times n)$\\
+					\hline
+				\end{tabular}
+				\caption{Complessità temporali delle procedure di interesse}				
+			\end{table}
+
+			Specifichiamo anche che queste complessità fanno riferimento ad algoritmi non quantistici (nella nostra trattazione solo l'attaccante è un solutore quantistico) e non galattici, in quanto il nostro obbiettivo è individuare crittosistemi di utilità pratica, proprio quello che non sono gli algoritmi galattici.
+			
+			Inoltre, in diversi algoritmi vengono estratti casualmente vettori o matrici. Modellizziamo questo con le procedure \textsc{randFromField} e \textsc{randFromCode}, le quali rispettivamente estraggono casualmente un elemento da un campo oppure da un codice lineare (di cui viene fornita la matrice generatrice o di parità). Ambedue le procedure hanno come secondo parametro, opzionale, un numero che indica il peso che deve avere l'elemento estratto.
+			
+	\chapter{La crittografia basata su reticoli \cite{12} \cite{14}}
+		Prima di addentrarci nella descrizione dei cifrari analizzati è doveroso illustrare, a grandi linee, il processo che ha portato alla formulazione di questi.
+		
+		La crittografia pre-quantistica è stata in larga misura basata su problemi matematici computazionalmente "difficili" (algoritmi di complessità non polinomiale), quali fattorizzazione (es. algoritmo RSA) o calcolo di logaritmi discreti (es. algoritmo Diffie-Hellman). Queste tecniche sono così divenute insicure nel momento in cui sono stati inventati algoritmi, per calcolatori quantistici, in grado performare in tempo polinomiale questi calcoli (si veda, ad esempio, l'algoritmo di Shor), almeno a livello teorico. I calcolatori quantistici di cui si dispone allo stato attuale non sono in grado di eseguire con successo questi algoritmi su casi di utilità pratica, ma solo su specifici sotto-casi e comunque di dimensioni molto ridotte rispetto a quelle dei casi di utilità pratica.
+		
+		Nell'attesa dunque che si realizzino calcolatori quantistici sufficientemente performanti, è necessario sviluppare crittosistemi in grado di resisterli, ma che siano anche abbastanza efficienti da avere un'utilità pratica. Le principali preoccupazioni nella realizzazione di un algoritmo post-quantistico sono, come vedremo più nel dettaglio nel confronto tra i cifrari:
+		\begin{itemize}
+			\item l'efficienza dei processi di criptazione e decrittazione;
+			\item le dimensioni delle chiavi;
+			\item le prove di correttezza (possono avere luogo errori nel processo di decodifica anche se si è in possesso di tutte le informazioni "private");
+			\item le prove di sicurezza.
+		\end{itemize}
+		Affinché un crittosistema possa avere un'utilità pratica deve bilanciare il trade-off tra questi aspetti (ad esempio, come vedremo, i crittosistemi di Alekhnovich basano la loro sicurezza, praticamente, sugli stessi principi del crittosistema più promettente che vedremo, ma si rivelano molto meno efficienti).
+		
+		Per arrivare al crittosistema finalista ci è utile partire dalla crittografia basata su reticoli. Negli ultimi decenni è stato dedicato grande interesse all'applicazione di problemi sui reticoli per la crittografia. Esistono, infatti, diversi problemi NP-Completi sui reticoli (ad esempio, "trovare il vettore più vicino a un vettore dato all'interno di un reticolo"), per i quali non sono noti algoritmi quantistici in grado di risolverli in tempo polinomiale. In più, per alcuni di questi problemi, si dimostra che la difficoltà resta analoga tra il caso medio e i casi (magari "pochi") generalmente considerati come "pessimi".
+		\section{Il crittosistema di Ajtai-Dwork \cite{18}}
+			Il primo esempio di crittosistema a chiave pubblica la cui sicurezza è ridotta alla difficoltà di un problema definito per i reticoli è stato il crittosistema di Ajtai-Dwork (il quale, tra le altre cose, ha gettato le basi per tutti i successivi schemi basati su reticoli). In buona sostanza, il crittosistema si basa su un problema che si è dimostrato avere nel caso medio la stessa difficoltà di un problema la cui difficoltà era apprezzabile (solo) per il caso pessimo. Si è trattato di un risultato di fondamentale importanza ma, come naturale nei lavori seminali, inadatto a un'implementazione pratica, a causa, ad esempio, delle elevate dimensioni delle chiavi ($O(n^4)$ per la chiave pubblica e $O(n^2)$ per la chiave privata).
+			In breve, questo crittosistema cripta un bit "0" come un elemento estratto casualmente dal reticolo e un bit "1" come una somma di elementi di un sottoinsieme estratto casualmente dal reticolo (anche la criptazione "per bit" anziché "per parola" degrada notevolmente le prestazioni).
+		\section{Il crittosistema di Regev \cite{17}}
+			Il crittosistema di Ajtai-Dwork è stato "aggiustato", sotto diversi aspetti, da diversi crittosistemi negli anni seguenti, tra cui il crittosistema di Regev. Quest'ultimo basa la propria sicurezza sul \emph{learning with errors problem} (ideato da Regev a partire dai problemi su cui si basava il crittosistema di Ajtai-Dwork). Lo introduciamo nella formulazione \emph{decisionale} (è quella che ci interessa per introdurre i crittosistemi di Alekhnovich):
+				\begin{definition}[Decision Learning with errors problem]
+					Siano:
+					\begin{itemize}
+						\item $q,n,m,\beta\in\mathbbm{N}$, con $n$ sufficientemente grande (es. $n\geq100$) e $\beta\ll q$;
+						\item $\mathbf{A}\in\mathbbm{Z}^{n\times m}_q$, una generica matrice in $\mathbbm{Z}^{n\times m}_q$:
+					\end{itemize}
+					\begin{center}
+						non è possibile distinguere $\mathbf{A}\textbf{s}+\textbf{e}$ da un vettore estratto casualmente da $\mathbbm{Z}^n_q$;
+					\end{center}
+					dove:
+					\begin{itemize}
+						\item $\textbf{s}\in[-\beta;\beta]^m$, estratto casualmente;
+						\item $\textbf{e}\in[-\beta;\beta]^n$, estratto casualmente.
+					\end{itemize}
+				\end{definition}
+				In breve, il crittosistema di Regev, così come il crittosistema di Ajtai-Dwork, cripta "bit per bit". Il bit $\mu$ viene criptato come:
+				\begin{center}
+					$\mathbf{A}\textbf{x}+
+					\begin{pmatrix}
+						0 \\
+						\dots \\
+						0 \\
+						\mu \frac{q}{2}
+					\end{pmatrix}$
+				\end{center}
+				dove:
+				\begin{itemize}
+					\item $\mathbf{A}$, è la chiave pubblica;
+					\item $\textbf{x}\in{\{0,1\}}^m$, un vettore di $m$ bit estratto casualmente;
+					\item $q$, è lo stesso $q$ visto nella definizione del learning with errors problem. 
+				\end{itemize}
+				e decrittato moltiplicando scalarmente il risultato della criptazione per la chiave privata. Questo in realtà non è esatto ma per quello che ci interesserà, ci è più che sufficiente sapere che il processo di criptazione consiste ("semplicemente") in un prodotto scalare con la chiave privata.
+				
+				Come vedremo anche nei crittosistemi che analizzeremo nel dettaglio, il crittosistema di Regev non garantisce la corretta decodifica ma solo una probabilità ragionevolmente alta per determinati parametri del crittosistema.
+	\chapter{I crittosistemi di Alekhnovich}
+		I \emph{crittosistemi di Alekhnovich} rappresentano il primo esempio di crittosistemi la cui sicurezza si riduce alla risoluzione dei problemi di decodifica (i quali, come visto nella sezione dedicata, sono oramai ben noti per essere computazionalmente difficili da risolvere anche con l’ausilio di calcolatori quantistici). Semplificando molto, durante la procedura di codifica viene inserito nell'informazione "utile" un vettore estratto casualmente (nei paragrafi successivi, indicato con $\textbf{e}$, o "errore"), il quale rende indistinguibile per un attaccante non in possesso della chiave privata, la decodifica del messaggio iniziale (a meno di risolvere un problema riducibile al decisional decoding problem).
+		
+		Questi crittosistemi rappresentano, inoltre, le fondamenta dei moderni meccanismi di crittografia basati su codici.
+		\section{Primo crittosistema di Alekhnovich \cite{7} \cite{9}}
+			Sia:
+			\begin{itemize}
+				\item $t$, un parametro (naturale) assegnato $o(\sqrt{n})$;
+				\item $\textbf{e}$, un vettore estratto casualmente (da $\mathbbm{F}_2^n$) di peso $t$;
+				\item $\mathfrak{C}$, un codice lineare su $\mathbbm{F}_2^n$ avente matrice di parità $\mathbf{H}$, ottenuta apponendo a una generica matrice una riga $\textbf{x}\mathbf{A}+\textbf{e}$, dove:
+				\begin{itemize}
+					\item $\textbf{x}$ è un generico vettore di $\mathbbm{F}_2^k$;
+					\item $\mathbf{A}$ è una generica matrice conforme alle dimensioni che dovrebbe avere $\mathbf{H}$ per le proprietà dei codici (ovvero $k\times n$);
+				\end{itemize}
+			\end{itemize}
+			il primo sistema di Alekhnovic prevede come:
+			\begin{itemize}
+				\item chiave pubblica : la matrice generatrice di $\mathfrak{C}$ (indicata come $\mathbf{G}$ nelle dimostrazioni);
+				\item chiave privata : il vettore $\textbf{e}$;
+				\item processo di criptazione: sul singolo bit;
+				\item processo di decriptazione: per un singolo bit.
+			\end{itemize}
+		\algOne
+		\algTwo
+		\section{Secondo crittosistema di Alekhnovich \cite{9}}
+			Sia:
+			\begin{itemize}
+				\item $\mathbf{M}=\mathbf{XA}+\mathbf{E}$, una generica matrice invertibile tale per cui:
+					\begin{itemize}
+						\item $\mathbf{X}$, è un generica matrice $\mathbbm{F}_2^{n\times\frac{n}{2}}$;
+						\item $\mathbf{A}$, è una generica matrice $\mathbbm{F}^{\frac{n}{2}\times n}$;
+						\item $\mathbf{E}$, è una generica matrice $\mathbbm{F}^{n\times n}$ avente ciascuna delle righe di peso $t$;
+					\end{itemize}
+				\item $\mathfrak{C}_1:=\{x\in\mathbbm{F}_2^{n}|\Phi(x)\in\mathfrak{C}_0\}$, dove:
+					\begin{itemize}
+						\item $\mathfrak{C}_0$, un codice di correzione d’errore avente:
+							\begin{itemize}
+								\item lunghezza $n$;
+								\item un algoritmo di decodifica avente complessità temporale polinomiale (indicato come \emph{decode} in seguito);
+								\item dimensione maggiore $\frac{n}{2}$;
+							\end{itemize}
+						\item $\Phi:\mathbbm{F}_2^n\rightarrow \mathbbm{F}_2^n$, l’applicazione lineare definita da $\mathbf{M}$ ($\Phi(x):=\mathbf{M}x$);
+					\end{itemize}
+				\item $\mathfrak{C}_2$, il codice lineare avente $\mathbf{A}$ come matrice di parità;
+				\item $\mathfrak{C}:=\mathfrak{C}_1 \cap \mathfrak{C}_2$, identifichiamo con:
+					\begin{itemize}
+						\item $k$, la dimensione di $\mathfrak{C}$;
+						\item $\mathbf{G}$, la sua matrice di parità ($k\times n$, di rango pieno);
+					\end{itemize}
+				\item $m$, la lunghezza di un messaggio (la scegliamo $\frac{k}{2}$);
+			\end{itemize}
+			il secondo sistema di Alekhnovic prevede:
+				\begin{itemize}
+					\item chiave pubblica : la matrice $\mathbf{G}$;
+					\item chiave privata : la matrice $\mathbf{E}$;
+					\item processo di criptazione : sul messaggio;
+					\item processo di decriptazione : sul messaggio.
+				\end{itemize}
+			\algThree
+			\algFour
+		\section{Dimostrazioni di sicurezza}
+			Possiamo identificare due tipologie differenti di attacco a un crittosistema a chiave pubblica (i nomi sono inventati dall'autore):
+			\begin{itemize}
+				\item \emph{Third Man Decryption Attack} : attacco finalizzato a decodificare con successo informazioni criptate senza l'utilizzo della chiave privata;
+				\item \emph{Private Key Deduction Attack} : attacco finalizzato al calcolo della chiave privata da quella pubblica;
+			\end{itemize}
+			occorre dunque dimostrare la sicurezza di un crittosistema ad ambedue queste tipologie di attacco.
+			
+			Nel nostro caso, i crittosistemi da analizzare basano la propria sicurezza sull'inesistenza di algoritmi in grado di risolvere i problemi di decodifica che abbiamo illustrato in tempo polinomiale. Le prove di sicurezza saranno dunque basate su riduzioni, ovvero dimostreremo che un algoritmo in grado di performare con successo un attacco (in tempo polinomiale) non può esistere nell'ipotesi che non esista un algoritmo in grado di risolvere un problema di decodifica "difficile".
+			
+			Le dimostrazioni il cui paragrafo non ha citazioni sono state ideate dall'autore.
+			\subsection{Primo crittosistema di Alekhnovich}
+				\subsubsection{Riduzione di sicurezza per TMDA \cite{9}}
+				Supponiamo esista, per assurdo, un algoritmo ($\textsc{TMDecrypt}$) che data la chiave pubblica $G$ del crittosistema sia in grado di ottenere $b$ da $s$ (dove $s$ è il risultato della criptazione del bit $b$). Nell'assunzione che valga l'ipotesi sul decoding decisionale $\textsc{TMDecrypt}$ non è in grado di distinguere il caso in cui l'input $s$ è ottenuto sommando $e$ (secondo la definizione data nel crittosistema) oppure è un vettore estratto casualmente. A causa di come il crittosistema crea la matrice di parità del codice di cui $G$ è la matrice generatrice, $\textsc{TMDecrypt}$ non è in grado di distinguere $G$ generata casualmente dalla $G$ "di Alekhnovich". Criptiamo allora il bit $b$ scegliendo $G$ random uniforme, otteniamo un assurdo: $\textsc{TMDecrypt}$ è in grado di decrittare sia il caso in cui $b=0$ che il caso in cui $b=1$ anche quando essi sono stati criptati come vettori totalmente random, cosa chiaramente impossibile (a meno di non scegliere "a caso" la soluzione). 
+				\subsubsection{Riduzione di sicurezza per PKDA}
+				Supponiamo esista un algoritmo che (in tempo polinomiale) data la matrice di parità $\mathbf{H}$ del codice costruito dal crittosistema di Alekhnovich possa dedurne $\textbf{e}$ (si noti che la chiave pubblica del crittosistema è la matrice generatrice, ma in tempo polinomiale è possibile dedurre $\mathbf{H}$ da $\mathbf{G}$). Se esistesse questo algoritmo (chiamiamolo $\textsc{discover(H)}$), sarebbe molto semplice realizzare un algoritmo che in tempo polinomiale risolve il Search Decoding Problem:
+				\algFive
+			\subsection{Secondo crittosistema di Alekhnovich}
+				\subsubsection{Riduzione di sicurezza per TMDA \cite{9}}
+				Supponiamo esista un algoritmo $\textsc{TMDecrypt}$ in grado di decrittare con successo senza la conoscenza di $E$ (conoscendo solo le informazioni private). Nell'ipotesi del decoding decisionale, $\textsc{TMDecrypt}$ non è in grado di distinguere tra $M$ (nella forma stabilita dal crittosistema) da una generica matrice $M'$ di rango massimo. Se ne fosse in grado, infatti, potrebbe distinguere $a+e$ (con $a$ somma random uniforme delle righe di $A$) ed $e$ random di peso $t$ da un vettore random uniforme, il che contraddice l'ipotesi.
+				
+				Sia allora $\mathfrak{V}$ un codice $[n,m]$ random e $z$ un n-vettore o random uniforme oppure $r+e$ (con $r$ estratto casualmente da $\mathfrak{V}$). Vogliamo utilizzare $\mathfrak{V}$ per individuare quale di queste due possibilità è $z$. Inoltre, sia $\mathfrak{U}$ un codice $[n,m]$ random e $\mathfrak{C}:=\mathfrak{U}\oplus \mathfrak{V}$ il codice in cui ciascuna parola è ottenuta dallo xor bit-a-bit di due parole di $\mathfrak{U}$ e $\mathfrak{V}$ e di dimensione $2m$ ($G$ la sua matrice generatrice). Da $\mathfrak{C}$ generiamo due codici ($\mathfrak{C}=\mathfrak{C}_1 \cap \mathfrak{C}_2$):
+				\begin{itemize}
+					\item $\mathfrak{C}_1$ : aggiungendo parole random a $\mathfrak{C}$ in modo da ottenere un codice di dimensione $\frac{9n}{10}$;
+					\item $\mathfrak{C}_2$ : aggiungendo parole random a $\mathfrak{C}$ in modo da ottenere un codice di dimensione $\frac{n}{2}$.
+				\end{itemize}
+				e sia $\phi$ la mappa associata alla matrice random $M'$ da $\mathfrak{C}_0$ a $\mathfrak{C}_1$.
+				
+				Utilizziamo allora $\textsc{TMDecrypt}$ per ottenere due parole e scegliamone uno a caso $\textbf{m}$. Diamogli allora in input $\textbf{m}G_\mathfrak{U}+z$ (dove $G_\mathfrak{U}$ è la matrice generatrice di $\mathfrak{U}$):
+				\begin{itemize}
+					\item se l'algoritmo è in grado di individuare $\textbf{m}$ poniamo $\textbf{z}=\textbf{r}+\textbf{e}$
+					\item altrimenti, poniamo $\textbf{z}$ uguale a un vettore random.
+				\end{itemize}
+				Dunque, ogni volta che $\textbf{z}=\textbf{r}+\textbf{e}$, l'input che diamo all'algoritmo ha la stessa identica forma del risultato della criptazione di $m$, contraddicendo così l'ipotesi sul decoding decisionale (sul codice $\mathfrak{V}$).
+			\subsubsection{Riduzione di sicurezza per PKDA}
+				Supponiamo esista un algoritmo che (in tempo polinomiale) data $G$ è in grado di trovare $E$. Dalle osservazioni in \cite{9}, la sicurezza del crittosistema non è influenzata se anche la matrice $M$ è pubblica. Ipotizziamo allora che esista un algoritmo $\textsc{discover(A,M)}$ permette di trovare $E$ (dove $A$ è la matrice $A$ del crittosistema, che è possibile ottenere da $G$ in tempo polinomiale). Possiamo così scrivere un algoritmo in grado di risolvere il search decoding problem in tempo polinomiale:
+				\algSix
+				
+				In sostanza, abbiamo usato la stessa strategia vista per il primo crittosistema di Alekhnovich, adattando semplicemente le dimensioni dei vettori.
+		
+	\chapter{Lo schema quasi-ciclico \cite{8}}
+		Sia:
+		\begin{itemize}
+			\item $n$, un generico naturale;
+			\item $q$, una generica potenza prima ($q=p^k$, dove $p$ è generico numero primo e $k$ è un generico naturale);
+			\item $\mathbf{R}:=\frac{\mathbbm{F}_q[x]}{(x^n -1)}$, l'anello quoziente definito con $q$ ed $n$;
+			\item $\mathfrak{C}$, un codice lineare $[n,k]$ su $\mathbbm{F}_q$ (chiamiamo $\mathbf{G}$ la sua matrice generatrice e, negli algoritmi, $decode$ il suo algoritmo di decodifica);
+			\item $\mathfrak{Q}$, un codice quasi ciclico generato casualmente $[2n,n]$ avente matrice di parità costruita come $\mathbf{H}=(\mathbbm{1_{n\times n}}|rot(\textbf{h}))$, con $\textbf{h}\in\mathbbm{F}_q^n$;
+			\item $w,w_r,w_e\in[0;\frac{\sqrt{n}}{2}]\in\mathbbm{N}$;
+			\item $\textbf{y},\textbf{z}\in\mathbbm{F}_q^n$, due vettori di peso di Hamming $w$;	
+			\item $\textbf{e}\in\mathbbm{F}_q^n$, un vettore estratto casualmente di peso di Hamming $w_e$;
+			\item $\textbf{r}_1,\textbf{r}_2\in\mathbbm{F}_q^n$, due vettori estratti casualmente di peso di Hamming $w_r$;	
+		\end{itemize}
+		Lo schema quasi-ciclico prevede come:
+		\begin{itemize}
+			\item chiave pubblica: $(\mathbf{G},\textbf{h},\textbf{s}:=\textbf{y}+\textbf{hz},w_e,w_r)$;
+			\item chiave privata: $(\textbf{y},\textbf{z})$;
+			\item processo di criptazione: sul messaggio;
+			\item processo di decriptazione: del messaggio.
+		\end{itemize}
+		\algSeven
+		\algEight
+	
+	\chapter{Analogie tra i crittosistemi analizzati}
+		\section{Analogie tra i crittosistemi basati su reticoli e i crittosistemi di Alekhnovich \cite{15}}
+		I crittosistemi di Alekhnovich, come abbiamo visto, basano la propria sicurezza su un problema (il decisional decoding problem) della teoria dai codici, non della teoria dei reticoli tuttavia, è proprio dai crittosistemi basati su reticoli che Alekhnovich ha tratto ispirazione.
+		
+		Il primo crittosistema di Alekhnovich è ispirato al crittosistema di Ajtai-Dwork, che non abbiamo analizzato nel dettaglio, ma abbiamo inquadrato i punti fondamentali del crittosistema di Regev (molto simile a quello di Ajtai-Dwork). Potremmo dire che il crittosistema di Regev sta al learning with errors problem (nell'enunciato "decisionale") come il primo crittosistema di Alekhnovich sta al decisional decoding problem:
+		\begin{itemize}
+			\item Decisional decoding problem: data $\mathbf{G}$, distinguere $\textbf{m}\mathbf{G}+\textbf{e}$ da $\textbf{m}$;
+			\item Decisional Learning with errors problem: data $\mathbf{A}$, distinguere $\mathbf{A}\textbf{s}+\textbf{e}$ da un vettore estratto casualmente dal reticolo.
+		\end{itemize}
+		ovvero il Decisional decoding problem "adatta" il Learning with errors problem ai codici lineari, utilizzando anziché un reticolo, un campo finito e ponendo come unico vincolo su $\textbf{e}$ il peso. Notiamo infatti che se scegliessimo $\textbf{e}$ nullo entrambi i problemi si risolverebbero come sistemi lineari dove $\mathbf{A}$ e $\mathbf{G}$ sono le matrici dei coefficienti. L'indistinguibilità si ottiene dall'aggiunta dell'errore, meccanismo "ispirato" ai problemi sui reticoli studiati da Ajtai-Dwork.
+		
+		Il processo di criptazione sfrutta questa indistinguibilità riducendo la distinzione tra un bit "1" e un bit "0" alla risoluzione di questi problemi. Il processo di decrittazione consiste per entrambi i crittosistemi nel prodotto scalare del risultato della criptazione con la chiave privata, il quale sarà ragionevolmente uguale al bit iniziale se si scelgono adeguatamente i parametri del crittosistema (in realtà il primo crittosistema di Alekhnovich garantisce questo solo per i bit "0").
+		
+		\section{Dai crittosistemi di Alekhnovich allo schema quasi ciclico \cite{15} \cite{13}}
+			I crittosistemi di Alekhnovich sono stati i primi a fornire dimostrazioni di sicurezza che non si basassero sulla natura dei codici utilizzati. Altri crittosistemi infatti, nascondono (in qualche modo) la struttura del/dei codice/i scelto/i. È stata proprio questa caratteristica a renderli interessanti dal punto di vista teorico per la definizione di crittosistemi più efficienti come lo schema quasi-ciclico.
+			
+			Nello schema quasi-ciclico si fa uso di due codici. Un codice random lineare (esattamente come i crittosistemi di Alekhnovich) la cui unica caratteristica (dovrebbe) essere quella di avere una decrittazione rapida e un codice random quasi-circolante che produce il consueto "errore" da aggiungere per soddisfare il decisional decoding problem ed esattamente come i crittosistemi di Alekhnovich, entrambi questi codici sono pubblici (ma non del tutto generici a causa della quasi-circolarità). In realtà, tra i due la somiglianza è ancora più grande, mostriamolo applicando un argomento per ibridi ai processi di criptazione del secondo crittosistema di Alekhnovich e dello schema quasi-ciclico (si noti che i processi sono stati riscritti, rispetto alle versioni date in precedenza, in una notazione più comoda all'argomento per ibridi):
+			
+			\tcbset{
+				myboxstyle/.style={
+					fonttitle=\bfseries,    % Titolo in grassetto
+					colbacktitle=blue!50!white, % Sfondo della sezione del titolo
+					coltitle=white,         % Colore del testo del titolo
+					opacitybacktitle=0.5,   % Trasparenza del titolo
+					boxrule=0.5mm,            % Spessore del bordo
+					colframe=black,         % Bordo completamente nero
+					sharp corners,          % Nessun arrotondamento dei bordi
+					top=2mm, bottom=2mm,    % Margini verticali interni
+					interior hidden,        % Nessun bordo tra titolo e corpo
+					width=4.3cm       % Larghezza del rettangolo             % Larghezza adattata al contenuto
+				}
+			}
+			\tcbset{
+				myboxstyle2/.style={
+					fonttitle=\bfseries,    % Titolo in grassetto
+					colbacktitle=blue!50!white, % Sfondo della sezione del titolo
+					coltitle=white,         % Colore del testo del titolo
+					opacitybacktitle=0.5,   % Trasparenza del titolo
+					boxrule=0.5mm,            % Spessore del bordo
+					colframe=black,         % Bordo completamente nero
+					sharp corners,          % Nessun arrotondamento dei bordi
+					top=2mm, bottom=2mm,    % Margini verticali interni
+					interior hidden,        % Nessun bordo tra titolo e corpo
+					width=5.7cm       % Larghezza del rettangolo             % Larghezza adattata al contenuto
+				}
+			}
+			\tcbset{
+				myboxstyle3/.style={
+					fonttitle=\bfseries,    % Titolo in grassetto
+					colbacktitle=blue!50!white, % Sfondo della sezione del titolo
+					coltitle=white,         % Colore del testo del titolo
+					opacitybacktitle=0.5,   % Trasparenza del titolo
+					boxrule=0.5mm,            % Spessore del bordo
+					colframe=black,         % Bordo completamente nero
+					sharp corners,          % Nessun arrotondamento dei bordi
+					top=2mm, bottom=2mm,    % Margini verticali interni
+					interior hidden,        % Nessun bordo tra titolo e corpo
+					width=4.8cm       % Larghezza del rettangolo             % Larghezza adattata al contenuto
+				}
+			}
+			\tcbset{
+				myboxstyle4/.style={
+					fonttitle=\bfseries,    % Titolo in grassetto
+					colbacktitle=red!50!white, % Sfondo della sezione del titolo
+					coltitle=white,         % Colore del testo del titolo
+					opacitybacktitle=0.5,   % Trasparenza del titolo
+					boxrule=0.5mm,            % Spessore del bordo
+					colframe=black,         % Bordo completamente nero
+					sharp corners,          % Nessun arrotondamento dei bordi
+					top=2mm, bottom=2mm,    % Margini verticali interni
+					interior hidden,        % Nessun bordo tra titolo e corpo
+					width=6.1cm       % Larghezza del rettangolo             % Larghezza adattata al contenuto
+				}
+			}
+			\tcbset{
+				myboxstyle5/.style={
+					fonttitle=\bfseries,    % Titolo in grassetto
+					colbacktitle=red!50!white, % Sfondo della sezione del titolo
+					coltitle=white,         % Colore del testo del titolo
+					opacitybacktitle=0.5,   % Trasparenza del titolo
+					boxrule=0.5mm,            % Spessore del bordo
+					colframe=black,         % Bordo completamente nero
+					sharp corners,          % Nessun arrotondamento dei bordi
+					top=2mm, bottom=2mm,    % Margini verticali interni
+					interior hidden,        % Nessun bordo tra titolo e corpo
+					width=5.1cm       % Larghezza del rettangolo             % Larghezza adattata al contenuto
+				}
+			}
+			\tcbset{
+				myboxstyle6/.style={
+					fonttitle=\bfseries,    % Titolo in grassetto
+					colbacktitle=red!50!white, % Sfondo della sezione del titolo
+					coltitle=white,         % Colore del testo del titolo
+					opacitybacktitle=0.5,   % Trasparenza del titolo
+					boxrule=0.5mm,            % Spessore del bordo
+					colframe=black,         % Bordo completamente nero
+					sharp corners,          % Nessun arrotondamento dei bordi
+					top=2mm, bottom=2mm,    % Margini verticali interni
+					interior hidden,        % Nessun bordo tra titolo e corpo
+					width=4.5cm       % Larghezza del rettangolo             % Larghezza adattata al contenuto
+				}
+			}
+			
+			\begin{tikzpicture}
+				% Primo rettangolo
+				\node[anchor=north west] (box1) at (0,0) {
+					\begin{tcolorbox}[myboxstyle, title={Alekhnovich2},fontupper=\fontsize{9pt}{11pt}\selectfont]
+						\begin{flushleft}
+							\textsc{encrypt(m):}\\
+							\quad $\mathbf{r}\in\mathbbm{F}_2^\frac{k}{2} $ (random) \\
+							\quad $\mathbf{e}\in\mathbbm{F}_2^n$, di peso $t$\\
+							\quad \textsc{return} $(\mathbf{m},\mathbf{r})G+\mathbf{e}$\\
+						\end{flushleft}
+					\end{tcolorbox}
+				};
+				
+				% Simbolo \equiv tra i box
+				\node[anchor=center] at ($(box1.east)+(2mm,0)$) {$\overset{(1)}{\equiv}$};
+				
+				% Secondo rettangolo
+				\node[anchor=north west] (box2) at (5,0) {
+					\begin{tcolorbox}[myboxstyle2, title={Alekhnovich2},fontupper=\fontsize{9pt}{11pt}\selectfont]
+						\begin{flushleft}
+							\textsc{encrypt(m):}\\
+							\quad $\mathbf{r}\in\mathbbm{F}_2^\frac{k}{2} $ (random) \\
+							\quad $\mathbf{e}\in\mathbbm{F}_2^n$, di peso $t$\\
+							\quad \textsc{return} $(\mathbf{m}G^1+\textbf{e}^1,\mathbf{r}G^2+\textbf{e}^2)$\\
+						\end{flushleft}
+					\end{tcolorbox}
+				};
+				\node[anchor=center] at ($(box2.east)+(2mm,0)$) {$\overset{(2)}{\equiv}$};
+				
+				% Secondo rettangolo
+				\node[anchor=north west] at (box1) at (11.4,0) {
+					\begin{tcolorbox}[myboxstyle3, title={Alekhnovich2},fontupper=\fontsize{9pt}{11pt}\selectfont]
+						\begin{flushleft}
+							\textsc{encrypt(m):}\\
+							\quad $\mathbf{r_1}\in\mathbbm{F}_2^\frac{k}{2} $ (random) \\
+							\quad $\mathbf{e}\in\mathbbm{F}_2^n$, di peso $t$\\
+							\quad \textsc{return} $(\mathbf{m}G^1+\textbf{e}^1,\textbf{r}_1)$\\
+						\end{flushleft}
+					\end{tcolorbox}
+				};
+			\end{tikzpicture}
+			
+			\begin{tikzpicture}
+				% Primo rettangolo
+				\node[anchor=north west] (box1) at (0,0) {
+					\begin{tcolorbox}[myboxstyle4, title={Quasi-ciclico},fontupper=\fontsize{9pt}{11pt}\selectfont]
+						\begin{flushleft}
+							\textsc{encrypt(m):}\\
+							\quad $\mathbf{r}_1,\mathbf{r}_2\in\mathbbm{F}_q^n $ (di peso $w_r$) \\
+							\quad $\mathbf{e}\in\mathbbm{F}_q^n$, di peso $w_e$\\ 
+							\quad \textsc{return} $(\mathbf{r}_1+\mathbf{h}\mathbf{r}_2,\mathbf{m}G+\mathbf{s}\mathbf{r}_2+\mathbf{e}$)\\
+						\end{flushleft}
+					\end{tcolorbox}
+				};
+				
+				% Simbolo \equiv tra i box
+				\node[anchor=center] at ($(box1.east)+(2mm,0)$) {$\overset{(3)}{\equiv}$};
+				
+				% Secondo rettangolo
+				\node[anchor=north west] at (box1) at (6.8,0) {
+					\begin{tcolorbox}[myboxstyle5, title={Quasi-ciclico},fontupper=\fontsize{9pt}{11pt}\selectfont]
+						\begin{flushleft}
+							\textsc{encrypt(m):}\\
+							\quad $\mathbf{r}\in\mathbbm{F}_q^n $ (random) \\
+							\quad $\mathbf{e}\in\mathbbm{F}_q^n$, di peso $w_e$\\ 
+							\quad \textsc{return} $(\mathbf{r},\mathbf{m}G+\mathbf{s}\mathbf{r}_2+\mathbf{e})$\\
+						\end{flushleft}
+					\end{tcolorbox}
+				};
+				\node[anchor=center] at ($(box1.east)+(5.9,0)$) {$\overset{(4)}{\equiv}$};
+				
+				% Secondo rettangolo
+				\node[anchor=north west] at (box1) at (12.4,0) {
+					\begin{tcolorbox}[myboxstyle6, title={Quasi-ciclico},fontupper=\fontsize{9pt}{11pt}\selectfont]
+						\begin{flushleft}
+							\textsc{encrypt(m):}\\
+							\quad $\mathbf{r}\in\mathbbm{F}_q^n $ (random) \\
+							\quad $\overset{\sim}{\mathbf{e}}\in\mathbbm{F}_q^n$\\
+							\quad \textsc{return} $(\mathbf{r},\mathbf{m}G+\overset{\sim}{\mathbf{e}})$\\
+						\end{flushleft}
+					\end{tcolorbox}
+				};
+			\end{tikzpicture}
+			
+			\renewcommand{\labelenumi}{(\theenumi)}
+			\begin{enumerate}
+				\item possiamo riscrivere l'espressione $(\mathbf{m},\mathbf{r})G+\mathbf{e}$ come la concatenazione di due componenti, ciascuno dipendente solo da $\mathbf{m}$ o solo da $\mathbf{r}$ ($G=(G^1,G^2)$,$\mathbf{e}=(\mathbf{e}^1,\mathbf{e}^2)$);
+				\item sotto la decisional decoding hypothesis, $\mathbf{r}G^2+\textbf{e}^2$ è indistinguibile da un vettore random (delle stesse dimensioni);
+				\item possiamo assumere che la somma tra due elementi random di peso basso (anche considerando la moltiplicazione per $\textbf{h}$) sia equivalente a un unico elemento random;
+				\item $\mathbf{s}\mathbf{r}_2$ può essere inteso come un vettore di peso basso.
+			\end{enumerate}
+
+	\chapter{Analisi comparativa dei cifrari analizzati}
+		\section{Parametri di confronto dei cifrari}
+			I parametri che si è deciso di utilizzare per confrontare tra loro i cifrari sono:
+			\begin{itemize}
+				\item parametri legati alle dimensioni:
+					\begin{itemize}
+						\item dimensione delle chiavi: dimensioni di chiave pubblica e privata sul numero di bit messaggio;
+						\item dimensione dei messaggi: rapporto tra numero di simboli di controllo sul numero di simboli di informazione;
+					\end{itemize}
+				\item parametri legati alle complessità temporali:
+					\begin{itemize}
+						\item complessità del processo di codifica;
+						\item complessità del processo di decodifica;
+					\end{itemize}
+				\item parametri legati alla sicurezza:
+					\begin{itemize}
+						\item teoremi a cui è ridotta la loro sicurezza;
+					\end{itemize}
+				\item parametri legati alla correttezza:
+					\begin{itemize}
+						\item probabilità di decrittare correttamente il contenuto di un messaggio.
+					\end{itemize}
+			\end{itemize}
+			Questi rappresentano un corpus di parametri utili a un primo confronto tra crittosistemi, ovvero efficienza, correttezza e sicurezza. La scelta di questi parametri è stata fatta, appunto, tenendo conto di quali sono i parametri che per primi vengono utilizzati per valutare l'affidabilità e l'utilità pratica di un crittosistema. Nella realtà seguono poi analisi più sofisticate in cui si tenta di attaccare il crittosistema con lo scopo di metterne alla luce possibili "falle". Ad esempio, esistono crittosistemi che si dimostrano essere resistenti anche ad attaccanti in possesso di parte delle informazioni private. Oppure, lo scopo di un attacco può non essere necessariamente la decrittazione di un messaggio senza l'ausilio di informazioni private. In un'analisi dettagliata di un crittosistema, infatti, si è interessanti anche alla \emph{Decryption Failure Analysis}, la quale analizza le informazioni ottenibili dagli errori di decodifica del crittosistema. Il risultato di una decodifica errata può infatti dare informazioni interessanti per un attaccante.
+		\section{Confronto dei cifrari}
+			\subsection{Dimensioni delle chiavi}
+				La dimensione delle chiavi di un crittosistema è indubbiamente di primario interesse per la valutazione dell'utilità pratica di un crittosistema. La dimensione delle chiavi, infatti, oltre ad essere (come vedremo) strettamente legata ai tempi di codifica/decodifica di un crittosistema, degrada le prestazioni del processo di scambio delle chiavi e limita fortemente il parametro $n$, la cui dimensione irrobustisce (esponenzialmente) il crittosistema da parte di attacchi di forza brutta.
+				
+				Benché nessuno dei crittosistemi analizzati abbia chiavi di dimensioni quali $O(n^4)$ del crittosistema di Ajtai-Dwork, anche $O(n^2)$ è generalmente considerato troppo grande per un crittosistema di utilità pratica.
+			
+				\begin{table}[ht]
+					\centering
+					\begin{tabular}[t]{lcc}
+						\hline
+						&Chiave pubblica&Chiave privata\\
+						\hline
+							Alekhnovich 1&$\Theta(n\times m)$&$\Theta(n)$\\
+							Alekhnovich 2&$\Theta(k\times n)$&$\Theta(n^2)$\\
+							Quasi-cyclic&$\Theta(n)$&$\Theta(n)$\\
+						\hline
+					\end{tabular}
+					\caption{Confronto dimensioni chiavi cifrari}
+				\end{table}
+			\subsection{Dimensioni dei messaggi}
+				Su $n$ simboli di informazione:
+				\begin{table}[H]
+					\centering
+					\begin{tabular}[t]{lc}
+						\hline
+						&Informazioni di controllo su $n$ bit di informazione\\
+						\hline
+						Alekhnovich 1&$\Theta(n^2)$\\
+						Alekhnovich 2&$\Theta(n)$\\
+						Quasi-cyclic&$\Theta(n)$\\
+						\hline
+					\end{tabular}
+					\caption{Confronto dimensioni dei messaggi}
+				\end{table}
+				Ad eccezione del primo crittosistema di Alekhnovich, tutti gli altri aggiungono un numero di bit lineare sul numero di bit di informazione, proprio perché la criptazione non avviene "sul singolo bit".
+			\subsection{Processi di codifica}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}[t]{lcc}
+						\hline
+						&Complessità temporale su $n$ bit da codificare:\\
+						\hline
+						Alekhnovich 1&$\Theta(n^2)$\\
+						Alekhnovich 2&$\Theta(n^2)$\\
+						Quasi-cyclic&$\Theta(n\times k), k\in\mathbbm{N}$\\
+						\hline
+					\end{tabular}
+					\caption{Confronto complessità temporali dei processi di codifica}				
+				\end{table}
+				Notiamo qui un aspetto non ancora affrontato sui crittosistemi. In generale, neanche nello schema quasi-ciclico (che è stato proposto come base per un crittosistema di utilità pratica), la complessità della codifica è un punto di forza. Tra tutti i parametri, infatti, questo è quello generalmente meno considerato nella realizzazione dei crittosistemi, dove si è particolarmente attenti alle dimensioni delle chiavi e ai tempi di decodifica.
+			\subsection{Processi di decodifica}
+				\begin{table}[H]
+					\centering
+					\begin{tabular}[t]{lcc}
+						\hline
+						&Complessità temporale su $n$ bit da decodificare:\\
+						\hline
+						Alekhnovich 1&$\Theta(n^2)$\\
+						Alekhnovich 2&$O(n^3)$\\
+						Quasi-cyclic&$\Theta(n^{2,00627})$\\
+						\hline
+					\end{tabular}
+					\caption{Confronto complessità temporali dei processi di decodifica}
+				\end{table}
+				La complessità di decodifica dello schema quasi-ciclico (dal momento che è strettamente legata alla funzione $decode$ scelta) è stata calcolata considerando i dati presentati in \cite{16}, i quali sono calcolati su una versione (del 2021) del crittosistema HQC.
+			\subsection{Sicurezza \cite{9}}
+				Tutti e tre i crittosistemi analizzati riducono la loro sicurezza al decisional decoding problem (per la precisione, lo schema quasi-ciclico al syndrome decoding problem, ma che si dimostra essere equivalente al decisional decoding problem), che si dimostra essere NP-completo.
+			\subsection{Correttezza}
+				Anche disponendo della chiave privata, nessuno degli schemi ha un DFR (\emph{Decoding Failure Rate}) nullo. Analizziamo dunque le probabilità di decodifica corretta dei crittosistemi nel momento in cui si hanno a disposizione tutte le informazioni private (scegliendo i parametri dei crittosistemi secondo quanto è consigliato):
+				\begin{table}[H]
+					\centering
+					\begin{tabular}[t]{lcc}
+						\hline
+						&Probabilità di decodifica corretta di un messaggio\\
+						\hline
+						Alekhnovich 1&$\approx1$ per i bit "0", 50\% per i bit "1"\\
+						Alekhnovich 2&$\approx1$\\
+						Quasi-cyclic&$\approx1$\\
+						\hline
+					\end{tabular}
+					\caption{Confronto affidabilità dei cifrari}
+				\end{table}
+	
+	\listoftables
+	
+	\printbibliography
+
+\end{document}

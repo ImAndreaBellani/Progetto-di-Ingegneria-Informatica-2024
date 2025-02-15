@@ -1,0 +1,39 @@
+\contentsline {chapter}{\numberline {1}Concetti preliminari}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Probabilità \blx@tocontentsinit {0}\cite {1}}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Strutture algebriche \blx@tocontentsinit {0}\cite {2} \blx@tocontentsinit {0}\cite {3}}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Strutture algebriche notevoli}{3}{subsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.1.1}Definizioni su anelli di polinomi}{4}{subsubsection.1.2.1.1}%
+\contentsline {section}{\numberline {1.3}Definizioni di teoria dei codici \emph {lineari} \blx@tocontentsinit {0}\cite {4} \blx@tocontentsinit {0}\cite {5} \blx@tocontentsinit {0}\cite {6}}{5}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Definizioni di teoria della computazione \blx@tocontentsinit {0}\cite {11}}{6}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}La complessità computazionale e la Macchina di Turing}{6}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}I problemi di classe NP e NP-Hard}{8}{subsection.1.4.2}%
+\contentsline {section}{\numberline {1.5}I problemi di decodifica \blx@tocontentsinit {0}\cite {7} \blx@tocontentsinit {0}\cite {8} \blx@tocontentsinit {0}\cite {9} \blx@tocontentsinit {0}\cite {10}}{8}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Definizioni di crittografia}{9}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Gli argomenti per ibridi \blx@tocontentsinit {0}\cite {19}}{9}{subsection.1.6.1}%
+\contentsline {chapter}{\numberline {2}Considerazioni preliminari sugli algoritmi presentati}{10}{chapter.2}%
+\contentsline {chapter}{\numberline {3}La crittografia basata su reticoli \blx@tocontentsinit {0}\cite {12} \blx@tocontentsinit {0}\cite {14}}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Il crittosistema di Ajtai-Dwork \blx@tocontentsinit {0}\cite {18}}{12}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Il crittosistema di Regev \blx@tocontentsinit {0}\cite {17}}{12}{section.3.2}%
+\contentsline {chapter}{\numberline {4}I crittosistemi di Alekhnovich}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Primo crittosistema di Alekhnovich \blx@tocontentsinit {0}\cite {7} \blx@tocontentsinit {0}\cite {9}}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Secondo crittosistema di Alekhnovich \blx@tocontentsinit {0}\cite {9}}{14}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Dimostrazioni di sicurezza}{15}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Primo crittosistema di Alekhnovich}{15}{subsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.1.1}Riduzione di sicurezza per TMDA \blx@tocontentsinit {0}\cite {9}}{15}{subsubsection.4.3.1.1}%
+\contentsline {subsubsection}{\numberline {4.3.1.2}Riduzione di sicurezza per PKDA}{16}{subsubsection.4.3.1.2}%
+\contentsline {subsection}{\numberline {4.3.2}Secondo crittosistema di Alekhnovich}{16}{subsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.2.1}Riduzione di sicurezza per TMDA \blx@tocontentsinit {0}\cite {9}}{16}{subsubsection.4.3.2.1}%
+\contentsline {subsubsection}{\numberline {4.3.2.2}Riduzione di sicurezza per PKDA}{17}{subsubsection.4.3.2.2}%
+\contentsline {chapter}{\numberline {5}Lo schema quasi-ciclico \blx@tocontentsinit {0}\cite {8}}{18}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Analogie tra i crittosistemi analizzati}{20}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Analogie tra i crittosistemi basati su reticoli e i crittosistemi di Alekhnovich \blx@tocontentsinit {0}\cite {15}}{20}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Dai crittosistemi di Alekhnovich allo schema quasi ciclico \blx@tocontentsinit {0}\cite {15} \blx@tocontentsinit {0}\cite {13}}{20}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Analisi comparativa dei cifrari analizzati}{22}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Parametri di confronto dei cifrari}{22}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Confronto dei cifrari}{23}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Dimensioni delle chiavi}{23}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Dimensioni dei messaggi}{23}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Processi di codifica}{23}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}Processi di decodifica}{24}{subsection.7.2.4}%
+\contentsline {subsection}{\numberline {7.2.5}Sicurezza \blx@tocontentsinit {0}\cite {9}}{24}{subsection.7.2.5}%
+\contentsline {subsection}{\numberline {7.2.6}Correttezza}{24}{subsection.7.2.6}%
