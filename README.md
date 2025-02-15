@@ -22,4 +22,4 @@ Progetto realizzato per il corso "PROGETTO DI INGEGNERIA INFORMATICA (5 CFU)" de
 - documentazione: contiene la documentazione del progetto;
 - presentazione: contiene una presentazione da utilizzare per un'eventuale esposizione del progetto;
 - analisi: contiene l'analisi che costituisce il progetto;
-- resources: contiene le fonti utilizzate per scrivere l'analisi.
+- resources.zip: contiene le fonti utilizzate per scrivere l'analisi.
